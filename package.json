@@ -1,0 +1,13 @@
+{
+    "name": "landing",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "view": "browser-sync start --port 3255 --server --watch --files './' --ignore 'node_modules/*'"
+    },
+    "license": "Apache-2.0",
+    "dependencies": {
+        "browser-sync": "^2.27.5"
+    }
+}
