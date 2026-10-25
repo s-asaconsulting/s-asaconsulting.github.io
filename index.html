@@ -2,7 +2,7 @@
 <html lang="uk" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     
     <!-- =====================================================================
          БЛОК SEO-ТЕГІВ ДЛЯ ПОШУКОВИХ СИСТЕМ (GOOGLE)
@@ -13,6 +13,15 @@
     <meta name="author" content="Володимир Латиш — С-АСА КОНСАЛТИНГ">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://s-asa.com.ua/">
+
+    <!-- Налаштування мобільного ярлика ("С-АСА") та додатка для Android та iOS -->
+    <meta name="apple-mobile-web-app-title" content="С-АСА">
+    <meta name="application-name" content="С-АСА">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FAF9F6">
+    <link rel="manifest" href="/site.webmanifest">
 
     <!-- Open Graph / Месенджери та соцмережі -->
     <meta property="og:type" content="website">
@@ -79,6 +88,7 @@
         html {
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
             background-color: #FAF9F6;
