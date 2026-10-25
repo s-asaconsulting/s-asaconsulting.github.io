@@ -97,7 +97,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Преміальний темний прелоадер (ідеально ховає чорний фоновий квадрат логотипа) */
+        /* Повноекранний темний прелоадер без рамок */
         #pagePreloader {
             position: fixed;
             inset: 0;
@@ -128,7 +128,7 @@
             50% { transform: scale(1.05); opacity: 1; }
         }
 
-        /* Плавна поява головного контенту */
+        /* Плавна поява головного контенту сайту */
         .app-loaded .hero-animated {
             opacity: 1;
             transform: translateY(0);
@@ -254,7 +254,7 @@
         </div>
     </header>
 
-    <!-- Головний екран (Hero Section) із плавним анімованим входом -->
+    <!-- Головний екран (Hero Section) -->
     <main>
         <section class="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden hero-animated">
             <div class="absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0 opacity-35 sm:opacity-60">
@@ -557,8 +557,8 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Преміальний перехід з гарантованим зникненням прелоадера через 800мс (без зависань)
-        document.addEventListener('DOMContentLoaded', () => {
+        // Преміальний перехід з гарантованим зникненням прелоадера через 800мс
+        window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('pagePreloader');
                 if (preloader) {
@@ -643,7 +643,6 @@
 
             const formData = new FormData(contactForm);
 
-            text = ''; // placeholder check, everything looks clean now
             try {
                 const response = await fetch(contactForm.action, {
                     method: 'POST',
@@ -656,7 +655,7 @@
                 if (response.ok) {
                     contactForm.reset();
                     formStatus.textContent = '✓ Дякуємо! Запит успішно надіслано.';
-                    formStatus.className = 'text-xs font-normal tracking-wide text-emerald-700 data-status block';
+                    formStatus.className = 'text-xs font-normal tracking-wide text-emerald-700 block';
                 } else {
                     throw new Error('Помилка сервера');
                 }
