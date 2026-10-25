@@ -103,46 +103,65 @@
             padding-top: env(safe-area-inset-top);
         }
 
-        /* Преміальний прелоадер (активується ТІЛЬКИ в режимі встановленого PWA-додатка) */
+        /* Стилі прелоадера (розтягнуте, благородне розчинення 1.6s) */
         #pagePreloader {
             position: fixed;
             inset: 0;
-            background-color: #18181B;
             z-index: 99999;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1s ease;
+            transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 1.6s ease;
         }
+        /* Темна тема для встановленого додатка */
+        #pagePreloader.theme-dark {
+            background-color: #18181B;
+            color: #FAF9F6;
+        }
+        /* Світла тема для браузера (як на вашому фото) */
+        #pagePreloader.theme-light {
+            background-color: #FAF9F6;
+            color: #18181B;
+        }
+
+        /* Плавна поява самого логотипа і тексту на старті прелоадера */
+        .preloader-content {
+            animation: preloaderFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
+        }
+        @keyframes preloaderFadeIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Кінематографічний відхід прелоадера при завершенні */
         #pagePreloader.loaded {
             opacity: 0;
             visibility: hidden;
         }
         #pagePreloader.loaded .preloader-content {
-            transform: scale(0.95) translateY(-20px);
+            transform: scale(1.03) translateY(-12px);
             opacity: 0;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
-        }
-        .preloader-content {
-            transition: transform 0.4s ease, opacity 0.4s ease;
-        }
-        .preloader-logo {
-            animation: pulseLogo 2s ease-in-out infinite;
-        }
-        @keyframes pulseLogo {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.05); opacity: 1; }
         }
 
-        /* Плавна поява контенту в додатку */
+        /* Делікатне дихання логотипа під час очікування */
+        .preloader-logo {
+            animation: pulseLogo 2.8s ease-in-out infinite;
+        }
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); opacity: 0.88; }
+            50% { transform: scale(1.04); opacity: 1; }
+        }
+
+        /* М'яка, синхронізована поява головної сторінки */
         .app-loaded .hero-animated {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.1s, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.1s;
+            transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
         }
         .hero-animated {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(24px);
         }
 
         .border-subtle {
@@ -211,11 +230,11 @@
 </head>
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
-    <!-- Прелоадер (скрит за замовчуванням, з'являється тільки в додатку) -->
+    <!-- Прелоадер (динамічний: темний для додатка, світлий для браузера як на фото) -->
     <div id="pagePreloader" style="display: none;">
-        <div class="preloader-content flex flex-col items-center gap-4">
+        <div class="preloader-content flex flex-col items-center gap-5">
             <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo">
-            <span class="font-serif text-sm tracking-[0.3em] uppercase text-alabaster/80">С-АСА КОНСАЛТИНГ</span>
+            <span class="font-serif text-sm tracking-[0.32em] uppercase opacity-90">С-АСА КОНСАЛТИНГ</span>
         </div>
     </div>
 
@@ -561,23 +580,25 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Логіка унікального показу прелоадера ТІЛЬКИ для встановленого PWA-додатка (Apple / Android)
+        // Динамічна логіка прелоадера: у браузері - світлий (як на фото), у додатку - темний
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const preloader = document.getElementById('pagePreloader');
 
-        if (isStandalone && preloader) {
+        if (preloader) {
             preloader.style.display = 'flex';
+            if (isStandalone) {
+                preloader.classList.add('theme-dark');
+            } else {
+                preloader.classList.add('theme-light');
+            }
+
+            // Подія завантаження з витриманою паузою 1500 мс (1.5 секунди) перед повільним розчиненням
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     preloader.classList.add('loaded');
                     document.body.classList.add('app-loaded');
-                }, 800);
+                }, 1500);
             });
-        } else {
-            if (preloader) {
-                preloader.remove();
-            }
-            document.body.classList.add('app-loaded');
         }
 
         document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -596,7 +617,7 @@
                 iosPrompt.classList.remove('hidden');
                 setTimeout(() => {
                     iosPrompt.classList.remove('translate-y-full');
-                }, 1200);
+                }, 2800); // Збільшено затримку банера, щоб він з'являвся вже після зникнення прелоадера
             }
 
             if (closeBtn) {
@@ -677,7 +698,7 @@
                 formStatus.className = 'text-xs font-normal tracking-wide text-red-700 block';
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnTest;
+                submitBtn.textContent = originalBtnText;
             }
         });
     </script>
