@@ -97,6 +97,7 @@
             color: #18181B;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Захист від закривання секцій фіксованою шапкою при плавному скролі */
@@ -110,7 +111,7 @@
         }
 
         /* =====================================================================
-           ПРЕЛОАДЕР ТІЛЬКИ ДЛЯ МОБІЛЬНИХ ДОДАТКІВ (STANDALONE)
+            УНІВЕРСАЛЬНИЙ ПРЕЛОАДЕР (ДЛЯ БРАУЗЕРІВ ТА ДОДАТКІВ)
         ====================================================================== */
         #pagePreloader {
             position: fixed;
@@ -121,7 +122,100 @@
             justify-content: center;
         }
 
-        /* ТЕМНА ТЕМА ДЛЯ ДОДАТКІВ APPLE ТА ANDROID */
+        .preloader-logo-wrap {
+            width: 96px;
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center center;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        .preloader-logo {
+            transform-origin: center center;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        /* --- 1. СВІТЛА ТЕМА ДЛЯ БРАУЗЕРІВ (Адаптована у фірмових кольорах) --- */
+        #pagePreloader.theme-light {
+            background-color: #FAF9F6;
+            color: #18181B;
+            transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        visibility 1.6s ease, 
+                        background-color 1.6s ease;
+        }
+
+        #pagePreloader.theme-light .preloader-logo-wrap {
+            animation: lightLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes lightLogoIntro {
+            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
+            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
+        }
+
+        #pagePreloader.theme-light .preloader-logo {
+            animation: lightLogoGlow 3.2s ease-in-out infinite 1.4s;
+        }
+        @keyframes lightLogoGlow {
+            0%, 100% { transform: scale(1) translateZ(0); }
+            50% { transform: scale(1.045) translateZ(0); }
+        }
+
+        #pagePreloader.theme-light .preloader-title {
+            opacity: 0;
+            letter-spacing: 0.35em;
+            animation: cinematicLightTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+        }
+        @keyframes cinematicLightTitle {
+            0% { opacity: 0; transform: translateY(16px) translateZ(0); }
+            100% { opacity: 0.9; transform: translateY(0) translateZ(0); }
+        }
+
+        #pagePreloader.theme-light .preloader-line-track {
+            width: 150px;
+            height: 1.5px;
+            background-color: rgba(24, 24, 27, 0.08);
+            overflow: hidden;
+            position: relative;
+            margin-top: 6px;
+            border-radius: 2px;
+        }
+
+        #pagePreloader.theme-light .preloader-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
+            animation: fillProgressLight 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+        @keyframes fillProgressLight {
+            0% { width: 0%; opacity: 0.5; }
+            100% { width: 100%; opacity: 1; }
+        }
+
+        #pagePreloader.theme-light .preloader-content {
+            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #pagePreloader.theme-light.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #pagePreloader.theme-light.loaded .preloader-content {
+            transform: scale(1.05) translateY(-20px);
+            opacity: 0;
+        }
+
+        /* --- 2. ТЕМНА ТЕМА ДЛЯ МОБІЛЬНИХ ДОДАТКІВ APPLE ТА ANDROID --- */
         #pagePreloader.theme-dark {
             background-color: #18181B;
             color: #FAF9F6;
@@ -136,28 +230,29 @@
             animation: appLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes appLogoIntro {
-            0% { opacity: 0; transform: scale(0.82) translateY(18px); filter: brightness(0.7); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1); }
+            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
+            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
         }
 
         #pagePreloader.theme-dark .preloader-logo {
             animation: appLogoGlow 3.2s ease-in-out infinite 1.4s;
         }
         @keyframes appLogoGlow {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(184, 155, 114, 0.15)); }
-            50% { transform: scale(1.045); filter: drop-shadow(0 0 24px rgba(184, 155, 114, 0.4)); }
+            0%, 100% { transform: scale(1) translateZ(0); }
+            50% { transform: scale(1.045) translateZ(0); }
         }
 
         #pagePreloader.theme-dark .preloader-title {
             opacity: 0;
+            letter-spacing: 0.35em;
             animation: cinematicAppTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
         }
         @keyframes cinematicAppTitle {
-            0% { opacity: 0; transform: translateY(16px); letter-spacing: 0.12em; }
-            100% { opacity: 0.95; transform: translateY(0); letter-spacing: 0.35em; }
+            0% { opacity: 0; transform: translateY(16px) translateZ(0); }
+            100% { opacity: 0.95; transform: translateY(0) translateZ(0); }
         }
 
-        .preloader-line-track {
+        #pagePreloader.theme-dark .preloader-line-track {
             width: 150px;
             height: 1.5px;
             background-color: rgba(250, 249, 246, 0.12);
@@ -166,7 +261,7 @@
             margin-top: 6px;
             border-radius: 2px;
         }
-        .preloader-line-fill {
+        #pagePreloader.theme-dark .preloader-line-fill {
             position: absolute;
             top: 0;
             left: 0;
@@ -196,17 +291,6 @@
             transform: scale(1.08) translateY(-24px);
             opacity: 0;
             filter: blur(8px);
-        }
-
-        /* Поява контенту головної сторінки */
-        .app-loaded .hero-animated {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
-        }
-        .hero-animated {
-            opacity: 0;
-            transform: translateY(20px);
         }
 
         .border-subtle {
@@ -275,11 +359,11 @@
 </head>
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
-    <!-- Прелоадер (активується ТІЛЬКИ у мобільних додатках) -->
+    <!-- Універсальний прелоадер -->
     <div id="pagePreloader" style="display: none;">
         <div class="preloader-content flex flex-col items-center gap-5">
             <div class="preloader-logo-wrap">
-                <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo">
+                <img src="LOGO.png" alt="С-АСА Логотип" class="max-h-full max-w-full object-contain preloader-logo" width="120" height="120">
             </div>
             <span class="preloader-title font-serif text-sm uppercase">С-АСА КОНСАЛТИНГ</span>
             <div class="preloader-line-track">
@@ -296,7 +380,7 @@
                 <!-- Логотип -->
                 <div class="flex items-center gap-3 sm:gap-4 logo-container">
                     <a href="#" class="flex items-center">
-                        <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" class="h-10 sm:h-14 w-auto object-contain logo-blend">
+                        <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" class="h-10 sm:h-14 w-auto object-contain logo-blend" width="140" height="56">
                     </a>
 
                     <a href="#" class="flex flex-col border-l border-obsidian/15 pl-3 sm:pl-4">
@@ -321,17 +405,32 @@
                     </div>
                 </div>
 
-                <!-- Кнопка зв'язку для мобільних -->
-                <a href="#contact" class="md:hidden text-[10px] sm:text-[11px] uppercase tracking-widest border border-obsidian/30 px-3 py-2 hover:bg-obsidian hover:text-white transition">
-                    Зв'язок
-                </a>
+                <!-- Кнопка мобільного меню (гамбургер) -->
+                <button id="menuBtn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none" aria-label="Мобільне меню">
+                    <span class="w-6 h-[1.5px] bg-obsidian transition-transform duration-300" id="line1"></span>
+                    <span class="w-6 h-[1.5px] bg-obsidian transition-opacity duration-300" id="line2"></span>
+                    <span class="w-6 h-[1.5px] bg-obsidian transition-transform duration-300" id="line3"></span>
+                </button>
             </div>
         </div>
     </header>
 
+    <!-- Мобільне виїзне меню (Overlay) -->
+    <div id="mobileMenu" class="fixed inset-0 z-40 bg-alabaster/98 backdrop-blur-xl flex flex-col justify-center items-center px-6 transform translate-x-full transition-transform duration-500 md:hidden">
+        <nav class="flex flex-col items-center space-y-8 text-sm uppercase tracking-[0.25em] text-obsidian font-normal">
+            <a href="#services" class="mobile-link nav-link">Послуги</a>
+            <a href="#philosophy" class="mobile-link nav-link">Підхід</a>
+            <a href="#contact" class="mobile-link nav-link">Контакти</a>
+        </nav>
+        <div class="mt-12 pt-8 border-t border-subtle w-48 text-center text-xs tracking-wider text-graphite space-y-2 font-light">
+            <a href="tel:+380738003775" class="block hover:text-bronzeDark transition">+380 73 800 37 75</a>
+            <a href="tel:+380678003775" class="block hover:text-bronzeDark transition">+380 67 800 37 75</a>
+        </div>
+    </div>
+
     <!-- Головний екран (Hero Section) -->
     <main>
-        <section class="relative min-h-screen flex items-center pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden hero-animated">
+        <section class="relative min-h-screen flex items-center pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden">
             <div class="absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0 opacity-35 sm:opacity-60">
                 <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                     <circle cx="300" cy="300" r="280" stroke="#B89B72" stroke-width="0.6" stroke-dasharray="3 6" class="svg-orbit"/>
@@ -349,7 +448,7 @@
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
-                <div class="max-w-3xl reveal active">
+                <div class="max-w-3xl">
                     <div class="inline-flex items-center gap-3 mb-5 sm:mb-8">
                         <span class="w-6 sm:w-8 h-[1px] bg-bronze"></span>
                         <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-bronzeDark font-medium">Системна архітектура бізнесу</span>
@@ -377,7 +476,7 @@
                     </div>
                 </div>
 
-                <div class="mt-16 sm:mt-24 pt-8 border-t border-subtle grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-2xl reveal active">
+                <div class="mt-16 sm:mt-24 pt-8 border-t border-subtle grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-2xl">
                     <div>
                         <span class="block font-serif text-lg sm:text-2xl text-obsidian">BAS & ІТ</span>
                         <span class="text-xs text-graphite tracking-wider uppercase mt-1 block">Алгоритмізація процесів</span>
@@ -413,6 +512,8 @@
                                      src="bas-service.jpg" 
                                      alt="Автоматизація бізнес-процесів BAS — графічна візуалізація потоків даних" 
                                      loading="lazy"
+                                     width="800"
+                                     height="600"
                                      class="w-full h-full object-cover img-editorial">
                                 <div class="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent pointer-events-none"></div>
                             </div>
@@ -467,7 +568,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
                 <div class="max-w-2xl mb-12 sm:mb-16 reveal">
                     <span class="text-xs uppercase tracking-[0.25em] text-bronze block mb-2 sm:mb-3">Методологія</span>
-                    <h2 class="font-serif text-2.5xl sm:text-5xl font-normal leading-tight">
+                    <h2 class="font-serif text-3xl sm:text-5xl font-normal leading-tight">
                         Як ми перетворюємо хаос поточних операцій на <span class="italic text-bronze">прозорий алгоритм</span>
                     </h2>
                 </div>
@@ -593,7 +694,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-xs text-graphite">
             <div class="flex items-center gap-3 logo-container">
                 <a href="#" class="flex items-center">
-                    <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend">
+                    <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend" width="100" height="40">
                 </a>
                 <a href="#" class="font-serif text-sm sm:text-lg tracking-[0.18em] sm:tracking-[0.2em] text-obsidian">С-АСА КОНСАЛТИНГ</a>
             </div>
@@ -630,28 +731,58 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Прелоадер працює ВИКЛЮЧЧНО у режимі встановленого додатка (standalone), у звичайному браузері — повністю вимкнений
+        // Універсальний прелоадер: у додатку — темний, у браузері — вишуканий світлий у кольорах сайту
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
-            if (isStandalone) {
-                preloader.style.display = 'flex';
-                preloader.classList.add('theme-dark');
+            preloader.style.display = 'flex';
+            const holdTime = isStandalone ? 2000 : 1600;
 
-                window.addEventListener('load', () => {
-                    setTimeout(() => {
-                        preloader.classList.add('loaded');
-                        document.body.classList.add('app-loaded');
-                    }, 2000);
-                });
+            if (isStandalone) {
+                preloader.classList.add('theme-dark');
             } else {
-                preloader.remove();
-                document.body.classList.add('app-loaded');
+                preloader.classList.add('theme-light');
             }
+
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    preloader.classList.add('loaded');
+                    document.body.classList.add('app-loaded');
+                }, holdTime);
+            });
         }
 
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Логіка мобільного меню (гамбургер)
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+
+        function toggleMenu() {
+            const isClosed = mobileMenu.classList.toggle('translate-x-full');
+            document.body.style.overflow = isClosed ? '' : 'hidden';
+            if (!isClosed) {
+                line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+                line2.style.opacity = '0';
+                line3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+            } else {
+                line1.style.transform = 'none';
+                line2.style.opacity = '1';
+                line3.style.transform = 'none';
+            }
+        }
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+        }
 
         // iOS Install Prompt
         document.addEventListener('DOMContentLoaded', () => {
