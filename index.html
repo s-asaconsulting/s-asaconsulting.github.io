@@ -97,7 +97,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Стилі для плавного прелоадера (екрана завантаження з логотипом) */
+        /* Преміальний анімований перехід від Лого до Сайту */
         #pagePreloader {
             position: fixed;
             inset: 0;
@@ -106,18 +106,37 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s ease;
         }
         #pagePreloader.loaded {
             opacity: 0;
             visibility: hidden;
         }
-        .preloader-logo {
-            animation: pulsePreloader 1.5s ease-in-out infinite;
+        #pagePreloader.loaded .preloader-content {
+            transform: scale(0.92) translateY(-20px);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
         }
-        @keyframes pulsePreloader {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.06); opacity: 1; }
+        .preloader-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .preloader-logo {
+            animation: pulseLogo 1.6s ease-in-out infinite;
+        }
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Плавна поява головного контенту */
+        .app-loaded .hero-animated {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        }
+        .hero-animated {
+            opacity: 0;
+            transform: translateY(15px);
         }
 
         .border-subtle {
@@ -186,10 +205,10 @@
 </head>
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
-    <!-- Екран завантаження (Прелоадер з логотипом) -->
+    <!-- Екран завантаження з анімацією переходу -->
     <div id="pagePreloader">
-        <div class="flex flex-col items-center gap-4">
-            <img src="LOGO.png" alt="С-АСА Логотип" class="h-20 w-auto object-contain preloader-logo logo-blend">
+        <div class="preloader-content flex flex-col items-center gap-4">
+            <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo logo-blend">
             <span class="font-serif text-sm tracking-[0.3em] uppercase text-obsidian/70">С-АСА КОНСАЛТИНГ</span>
         </div>
     </div>
@@ -235,9 +254,9 @@
         </div>
     </header>
 
-    <!-- Головний екран (Hero Section) -->
+    <!-- Головний екран (Hero Section) із плавним анімованим входом -->
     <main>
-        <section class="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
+        <section class="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden hero-animated">
             <div class="absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0 opacity-35 sm:opacity-60">
                 <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                     <circle cx="300" cy="300" r="280" stroke="#B89B72" stroke-width="0.6" stroke-dasharray="3 6" class="svg-orbit"/>
@@ -538,14 +557,15 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Плавне вимкнення екрана завантаження з невеликою затримкою для повної готовності стилів Tailwind
+        // Плавне перетікання від прелоадера до появи сайту
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('pagePreloader');
                 if (preloader) {
                     preloader.classList.add('loaded');
                 }
-            }, 350);
+                document.body.classList.add('app-loaded');
+            }, 400);
         });
 
         // Автоматичне оновлення року в футері
