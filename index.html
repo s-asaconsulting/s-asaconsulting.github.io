@@ -97,6 +97,29 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Стилі для плавного прелоадера (екрана завантаження з логотипом) */
+        #pagePreloader {
+            position: fixed;
+            inset: 0;
+            background-color: #FAF9F6;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #pagePreloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-logo {
+            animation: pulsePreloader 1.5s ease-in-out infinite;
+        }
+        @keyframes pulsePreloader {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+
         .border-subtle {
             border-color: rgba(24, 24, 27, 0.1);
         }
@@ -162,6 +185,14 @@
     </style>
 </head>
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
+
+    <!-- Екран завантаження (Прелоадер з логотипом) -->
+    <div id="pagePreloader">
+        <div class="flex flex-col items-center gap-4">
+            <img src="LOGO.png" alt="С-АСА Логотип" class="h-20 w-auto object-contain preloader-logo logo-blend">
+            <span class="font-serif text-sm tracking-[0.3em] uppercase text-obsidian/70">С-АСА КОНСАЛТИНГ</span>
+        </div>
+    </div>
 
     <!-- Навігація -->
     <header class="fixed w-full top-0 z-50 bg-alabaster/90 backdrop-blur-md border-b border-subtle transition-all duration-300">
@@ -507,6 +538,14 @@
 
     <!-- СКРИПТИ -->
     <script>
+        // Плавне вимкнення екрана завантаження (прелоадера) при повному завантаженні сторінки
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('pagePreloader');
+            if (preloader) {
+                preloader.classList.add('loaded');
+            }
+        });
+
         // Автоматичне оновлення року в футері
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
