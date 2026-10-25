@@ -87,6 +87,7 @@
 
     <style>
         html {
+            scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
             -webkit-tap-highlight-color: transparent;
@@ -96,6 +97,11 @@
             color: #18181B;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* Захист від закривання секцій фіксованою шапкою при плавному скролі */
+        section {
+            scroll-margin-top: 90px;
         }
 
         /* Безпечна зона для iPhone (виріз / Dynamic Island / статус-бар) */
@@ -115,55 +121,47 @@
             justify-content: center;
         }
 
-        /* --- А. ТЕМНА ТЕМА З КІНЕМАТОГРАФІЧНОЮ АНІМАЦІЄЮ (Тільки для додатків Apple та Android) --- */
+        /* --- А. ТЕМНА ТЕМА ДЛЯ МОБІЛЬНИХ ДОДАТКІВ APPLE ТА ANDROID --- */
         #pagePreloader.theme-dark {
-            background-color: rgba(24, 24, 27, 1);
+            background-color: #18181B;
             color: #FAF9F6;
-            transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), 
-                        visibility 1.6s ease, 
-                        background-color 1.6s ease, 
-                        backdrop-filter 1.6s ease,
-                        -webkit-backdrop-filter 1.6s ease;
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        visibility 1.8s ease;
         }
 
-        /* 1. Анімація появи на старті (логотип + титр з розширенням літер) */
         #pagePreloader.theme-dark .preloader-logo-wrap {
-            animation: appLogoIntro 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: appLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes appLogoIntro {
-            0% { opacity: 0; transform: scale(0.88) translateY(10px); }
+            0% { opacity: 0; transform: scale(0.82) translateY(18px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        #pagePreloader.theme-dark .preloader-logo {
+            animation: appLogoGlow 3.2s ease-in-out infinite 1.4s;
+        }
+        @keyframes appLogoGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.045); }
         }
 
         #pagePreloader.theme-dark .preloader-title {
             opacity: 0;
-            animation: cinematicTitle 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            animation: cinematicAppTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
         }
-        @keyframes cinematicTitle {
-            0% { opacity: 0; transform: translateY(14px); letter-spacing: 0.12em; }
-            100% { opacity: 0.92; transform: translateY(0); letter-spacing: 0.35em; }
-        }
-
-        /* 2. Анімація очікування (дихання логотипа + золота лінія прогресу) */
-        #pagePreloader.theme-dark .preloader-logo {
-            animation: pulseLogoApp 2.6s ease-in-out infinite 1.1s;
-        }
-        @keyframes pulseLogoApp {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.05); filter: brightness(1.12); }
+        @keyframes cinematicAppTitle {
+            0% { opacity: 0; transform: translateY(16px); letter-spacing: 0.12em; }
+            100% { opacity: 0.95; transform: translateY(0); letter-spacing: 0.35em; }
         }
 
         .preloader-line-track {
-            display: none;
-            width: 140px;
-            height: 1px;
+            width: 150px;
+            height: 1.5px;
             background-color: rgba(250, 249, 246, 0.12);
             overflow: hidden;
             position: relative;
-            margin-top: 4px;
-        }
-        #pagePreloader.theme-dark .preloader-line-track {
-            display: block;
+            margin-top: 6px;
+            border-radius: 2px;
         }
         .preloader-line-fill {
             position: absolute;
@@ -172,56 +170,75 @@
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, transparent, #B89B72, #FAF9F6, #B89B72);
-            animation: fillProgress 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+            animation: fillProgressApp 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
-        @keyframes fillProgress {
-            0% { width: 0%; opacity: 0.6; }
+        @keyframes fillProgressApp {
+            0% { width: 0%; opacity: 0.5; }
             100% { width: 100%; opacity: 1; }
         }
 
-        /* 3. Анімація самого переходу на сайт (масштабування вгору + ефект розмиття blur) */
         #pagePreloader.theme-dark .preloader-content {
-            transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
-                        opacity 1.3s cubic-bezier(0.22, 1, 0.36, 1), 
-                        filter 1.3s ease;
+            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #pagePreloader.theme-dark.loaded {
             opacity: 0;
             visibility: hidden;
-            background-color: rgba(24, 24, 27, 0.2);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
         }
         #pagePreloader.theme-dark.loaded .preloader-content {
-            transform: scale(1.08) translateY(-22px);
+            transform: scale(1.05) translateY(-18px);
             opacity: 0;
-            filter: blur(6px);
         }
 
-        /* --- Б. СВІТЛА ТЕМА (Тільки для звичайних браузерів) --- */
+        /* --- Б. СВІТЛА ТЕМА ДЛЯ БРАУЗЕРІВ (Ідеально плавна, без двоїння та лагів) --- */
         #pagePreloader.theme-light {
             background-color: #FAF9F6;
             color: #18181B;
-            transition: opacity 0.5s ease-out, visibility 0.5s ease;
+            will-change: opacity;
+            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                        visibility 1.5s ease;
         }
+
+        #pagePreloader.theme-light .preloader-logo-wrap {
+            animation: lightLogoIntro 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        @keyframes lightLogoIntro {
+            0% { opacity: 0; transform: scale(0.94) translateY(8px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         #pagePreloader.theme-light .preloader-title {
-            letter-spacing: 0.3em;
-            opacity: 0.85;
+            opacity: 0;
+            animation: lightTitleIntro 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
+        }
+        @keyframes lightTitleIntro {
+            0% { opacity: 0; transform: translateY(8px); letter-spacing: 0.18em; }
+            100% { opacity: 0.9; transform: translateY(0); letter-spacing: 0.3em; }
+        }
+
+        #pagePreloader.theme-light .preloader-content {
+            will-change: transform, opacity;
+            transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         #pagePreloader.theme-light.loaded {
             opacity: 0;
             visibility: hidden;
+        }
+        #pagePreloader.theme-light.loaded .preloader-content {
+            transform: translateY(-10px);
+            opacity: 0;
         }
 
         /* Поява контенту головної сторінки */
         .app-loaded .hero-animated {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.1s, transform 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.1s;
         }
         .hero-animated {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(16px);
         }
 
         .border-subtle {
@@ -297,6 +314,7 @@
                 <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo">
             </div>
             <span class="preloader-title font-serif text-sm uppercase">С-АСА КОНСАЛТИНГ</span>
+            <!-- Лінія залишається лише в темному додатку -->
             <div class="preloader-line-track">
                 <div class="preloader-line-fill"></div>
             </div>
@@ -645,13 +663,13 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Динамічний прелоадер: у додатку — темний з повною кінематографічною анімацією (1800 мс), у браузері — світлий і швидкий (350 мс)
+        // Динамічний прелоадер: у додатку — темний (2000 мс), у браузері — світлий шовковистий без лагів (1500 мс)
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
             preloader.style.display = 'flex';
-            const holdTime = isStandalone ? 1800 : 350;
+            const holdTime = isStandalone ? 2000 : 1500;
 
             if (isStandalone) {
                 preloader.classList.add('theme-dark');
@@ -683,7 +701,7 @@
                 iosPrompt.classList.remove('hidden');
                 setTimeout(() => {
                     iosPrompt.classList.remove('translate-y-full');
-                }, 1500);
+                }, 2600);
             }
 
             if (closeBtn) {
