@@ -97,7 +97,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Преміальний анімований перехід від Лого до Сайту */
+        /* Преміальний повільний і м'який перехід від Лого до Сайту */
         #pagePreloader {
             position: fixed;
             inset: 0;
@@ -106,37 +106,37 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s ease;
+            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.4s ease;
         }
         #pagePreloader.loaded {
             opacity: 0;
             visibility: hidden;
         }
         #pagePreloader.loaded .preloader-content {
-            transform: scale(0.92) translateY(-20px);
+            transform: scale(0.94) translateY(-25px);
             opacity: 0;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.9s ease;
         }
         .preloader-content {
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition: transform 0.4s ease, opacity 0.4s ease;
         }
         .preloader-logo {
-            animation: pulseLogo 1.6s ease-in-out infinite;
+            animation: pulseLogo 2.2s ease-in-out infinite;
         }
         @keyframes pulseLogo {
-            0%, 100% { transform: scale(1); opacity: 0.9; }
+            0%, 100% { transform: scale(1); opacity: 0.85; }
             50% { transform: scale(1.05); opacity: 1; }
         }
 
-        /* Плавна поява головного контенту */
+        /* Повільна і дуже м'яна поява головного контенту сайту */
         .app-loaded .hero-animated {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.3s, transform 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.3s;
         }
         .hero-animated {
             opacity: 0;
-            transform: translateY(15px);
+            transform: translateY(25px);
         }
 
         .border-subtle {
@@ -205,7 +205,7 @@
 </head>
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
-    <!-- Екран завантаження з анімацією переходу -->
+    <!-- Екран завантаження з повільною преміальною анімацією -->
     <div id="pagePreloader">
         <div class="preloader-content flex flex-col items-center gap-4">
             <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo logo-blend">
@@ -254,7 +254,7 @@
         </div>
     </header>
 
-    <!-- Головний екран (Hero Section) із плавним анімованим входом -->
+    <!-- Головний екран (Hero Section) із повільним кінематографічним входом -->
     <main>
         <section class="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden hero-animated">
             <div class="absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0 opacity-35 sm:opacity-60">
@@ -557,7 +557,7 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Плавне перетікання від прелоадера до появи сайту
+        // Повільне, преміальне перетікання від заставки до сайту
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('pagePreloader');
@@ -565,7 +565,7 @@
                     preloader.classList.add('loaded');
                 }
                 document.body.classList.add('app-loaded');
-            }, 400);
+            }, 600);
         });
 
         // Автоматичне оновлення року в футері
@@ -612,7 +612,7 @@
 
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
-        window.addEventListener('scroll', () => {
+.window.addEventListener('scroll', () => {
             if (window.scrollY > 400) {
                 scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
                 scrollToTopBtn.classList.add('opacity-100', 'translate-y-0');
