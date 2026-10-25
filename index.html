@@ -14,16 +14,17 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://s-asa.com.ua/">
 
-    <!-- Налаштування мобільного ярлика ("С-АСА") та додатка для Android та iOS -->
+    <!-- Налаштування мобільного додатка та статус-бару -->
     <meta name="apple-mobile-web-app-title" content="С-АСА">
     <meta name="application-name" content="С-АСА">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#18181B">
+    <meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#18181B" media="(prefers-color-scheme: dark)">
     <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Open Graph / Месенджери та соцмережі -->
+    <!-- Open Graph / Соцмережі -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://s-asa.com.ua/">
     <meta property="og:title" content="С-АСА КОНСАЛТИНГ — Автоматизація бізнес-процесів та облік на базі 1С / BAS">
@@ -31,11 +32,11 @@
     <meta property="og:image" content="https://s-asa.com.ua/LOGO.png">
     <meta property="og:locale" content="uk_UA">
 
-    <!-- Іконка сайту (Favicon) -->
+    <!-- Favicon -->
     <link id="faviconLink" rel="icon" type="image/png" href="LOGO.png">
     <link id="appleTouchIconLink" rel="apple-touch-icon" href="LOGO.png">
 
-    <!-- Мікророзмітка Schema.org для Google -->
+    <!-- Мікророзмітка Schema.org -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -55,10 +56,10 @@
     }
     </script>
 
-    <!-- Підключення Tailwind CSS -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Підключення преміальних шрифтів -->
+    <!-- Преміальні шрифти -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -95,48 +96,17 @@
             color: #18181B;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            animation: fadeInPage 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Повноекранний темний прелоадер без рамок */
-        #pagePreloader {
-            position: fixed;
-            inset: 0;
-            background-color: #18181B;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s ease;
-        }
-        #pagePreloader.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #pagePreloader.loaded .preloader-content {
-            transform: scale(0.94) translateY(-25px);
-            opacity: 0;
-            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
-        }
-        .preloader-content {
-            transition: transform 0.4s ease, opacity 0.4s ease;
-        }
-        .preloader-logo {
-            animation: pulseLogo 2.2s ease-in-out infinite;
-        }
-        @keyframes pulseLogo {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.05); opacity: 1; }
+        /* Автоматичний відступ зверху для шапки з урахуванням вирізу iPhone */
+        header.fixed {
+            padding-top: env(safe-area-inset-top);
         }
 
-        /* Плавна поява головного контенту сайту */
-        .app-loaded .hero-animated {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1) 0.2s, transform 1.3s cubic-bezier(0.25, 1, 0.5, 1) 0.2s;
-        }
-        .hero-animated {
-            opacity: 0;
-            transform: translateY(25px);
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .border-subtle {
@@ -205,14 +175,6 @@
 </head>
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
-    <!-- Темний прелоадер (безшовний запуск у мобільних додатках) -->
-    <div id="pagePreloader">
-        <div class="preloader-content flex flex-col items-center gap-4">
-            <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo">
-            <span class="font-serif text-sm tracking-[0.3em] uppercase text-alabaster/80">С-АСА КОНСАЛТИНГ</span>
-        </div>
-    </div>
-
     <!-- Навігація -->
     <header class="fixed w-full top-0 z-50 bg-alabaster/90 backdrop-blur-md border-b border-subtle transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
@@ -230,7 +192,7 @@
                     </a>
                 </div>
 
-                <!-- Меню та контакти (десктоп та планшети) -->
+                <!-- Меню (десктоп) -->
                 <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
                     <nav class="flex space-x-8 lg:space-x-10 text-xs uppercase tracking-[0.18em] text-obsidian font-normal">
                         <a href="#services" class="nav-link">Послуги</a>
@@ -256,7 +218,7 @@
 
     <!-- Головний екран (Hero Section) -->
     <main>
-        <section class="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden hero-animated">
+        <section class="relative min-h-screen flex items-center pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden">
             <div class="absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0 opacity-35 sm:opacity-60">
                 <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                     <circle cx="300" cy="300" r="280" stroke="#B89B72" stroke-width="0.6" stroke-dasharray="3 6" class="svg-orbit"/>
@@ -315,7 +277,7 @@
             </div>
         </section>
 
-        <!-- Секція послуг (Services Section) -->
+        <!-- Секція послуг -->
         <section id="services" class="py-20 sm:py-28 border-t border-subtle bg-alabaster">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
                 
@@ -331,7 +293,6 @@
 
                 <div class="max-w-3xl mx-auto">
                     
-                    <!-- Послуга 01: Автоматизація бізнес-процесів (BAS) -->
                     <div class="group bg-stone/50 border border-subtle p-5 sm:p-12 flex flex-col justify-between transition-colors duration-500 hover:bg-stone reveal">
                         <div>
                             <div class="relative h-56 sm:h-80 w-full mb-6 sm:mb-10 overflow-hidden bg-obsidian">
@@ -340,7 +301,6 @@
                                      alt="Автоматизація бізнес-процесів BAS — графічна візуалізація потоків даних" 
                                      loading="lazy"
                                      class="w-full h-full object-cover img-editorial">
-                                
                                 <div class="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent pointer-events-none"></div>
                             </div>
 
@@ -389,7 +349,7 @@
             </div>
         </section>
 
-        <!-- Секція Візуалізації Процесу (Підхід) -->
+        <!-- Секція методології -->
         <section id="philosophy" class="py-20 sm:py-24 bg-obsidian text-alabaster relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
                 <div class="max-w-2xl mb-12 sm:mb-16 reveal">
@@ -424,7 +384,7 @@
             </div>
         </section>
 
-        <!-- Секція контактів та робочої форми -->
+        <!-- Секція контактів та форми -->
         <section id="contact" class="py-20 sm:py-28 bg-alabaster">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
                 <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -515,7 +475,7 @@
         </section>
     </main>
 
-    <!-- Підвал (Footer) -->
+    <!-- Підвал -->
     <footer class="bg-alabaster border-t border-subtle py-8 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-xs text-graphite">
             <div class="flex items-center gap-3 logo-container">
@@ -528,7 +488,7 @@
         </div>
     </footer>
 
-    <!-- Розумний банер-підказка для встановлення на iPhone (iOS) -->
+    <!-- iOS банер-підказка -->
     <div id="iosInstallPrompt" class="fixed bottom-0 left-0 right-0 z-50 p-4 transform translate-y-full transition-transform duration-500 hidden">
         <div class="max-w-md mx-auto bg-obsidian text-alabaster border border-bronze/40 p-4 shadow-2xl relative flex items-start gap-4">
             <div class="shrink-0 pt-0.5 text-bronze">
@@ -546,7 +506,7 @@
         </div>
     </div>
 
-    <!-- Кнопка прокрутки вгору (Scroll to Top) -->
+    <!-- Кнопка скролу вгору -->
     <button id="scrollToTopBtn" 
             aria-label="Прокрутити нагору"
             class="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-50 w-11 h-11 sm:w-12 sm:h-12 bg-obsidian text-alabaster border border-bronze/40 flex items-center justify-center shadow-lg opacity-0 translate-y-4 pointer-events-none transition-all duration-500 hover:bg-bronzeDark focus:outline-none">
@@ -557,21 +517,9 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Преміальний перехід з гарантованим зникненням прелоадера через 800мс
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const preloader = document.getElementById('pagePreloader');
-                if (preloader) {
-                    preloader.classList.add('loaded');
-                }
-                document.body.classList.add('app-loaded');
-            }, 800);
-        });
-
-        // Автоматичне оновлення року в футері
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Логіка показу підказки для встановлення на iOS (iPhone/iPad)
+        // iOS Install Prompt
         document.addEventListener('DOMContentLoaded', () => {
             const iosPrompt = document.getElementById('iosInstallPrompt');
             const closeBtn = document.getElementById('closeIosPrompt');
@@ -581,7 +529,6 @@
             const isStandaloneQuery = window.matchMedia('(display-mode: standalone)').matches;
             const isDismissed = localStorage.getItem('iosPromptDismissed');
 
-            // Показуємо банер лише якщо це iOS, додаток ще не встановлено і користувач його не закривав раніше
             if (isIos && !isInStandaloneMode && !isStandaloneQuery && !isDismissed) {
                 iosPrompt.classList.remove('hidden');
                 setTimeout(() => {
@@ -600,6 +547,7 @@
             }
         });
 
+        // Scroll animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -610,6 +558,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+        // Scroll to top button
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
         window.addEventListener('scroll', () => {
@@ -629,6 +578,7 @@
             });
         });
 
+        // Contact form handler
         const contactForm = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
         const formStatus = document.getElementById('formStatus');
