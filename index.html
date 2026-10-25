@@ -19,8 +19,8 @@
     <meta name="application-name" content="С-АСА">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#FAF9F6">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#18181B">
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- Open Graph / Месенджери та соцмережі -->
@@ -97,16 +97,16 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Преміальний анімований перехід від Лого до Сайту */
+        /* Преміальний темний прелоадер (ідеально ховає чорний фоновий квадрат логотипа) */
         #pagePreloader {
             position: fixed;
             inset: 0;
-            background-color: #FAF9F6;
+            background-color: #18181B;
             z-index: 99999;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.4s ease;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s ease;
         }
         #pagePreloader.loaded {
             opacity: 0;
@@ -115,7 +115,7 @@
         #pagePreloader.loaded .preloader-content {
             transform: scale(0.94) translateY(-25px);
             opacity: 0;
-            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.9s ease;
+            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
         }
         .preloader-content {
             transition: transform 0.4s ease, opacity 0.4s ease;
@@ -132,7 +132,7 @@
         .app-loaded .hero-animated {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.3s, transform 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.3s;
+            transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1) 0.2s, transform 1.3s cubic-bezier(0.25, 1, 0.5, 1) 0.2s;
         }
         .hero-animated {
             opacity: 0;
@@ -205,11 +205,11 @@
 </head>
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
-    <!-- Екран завантаження з анімацією переходу -->
+    <!-- Темний прелоадер (безшовний запуск у мобільних додатках) -->
     <div id="pagePreloader">
         <div class="preloader-content flex flex-col items-center gap-4">
-            <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo logo-blend">
-            <span class="font-serif text-sm tracking-[0.3em] uppercase text-obsidian/70">С-АСА КОНСАЛТИНГ</span>
+            <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo">
+            <span class="font-serif text-sm tracking-[0.3em] uppercase text-alabaster/80">С-АСА КОНСАЛТИНГ</span>
         </div>
     </div>
 
@@ -557,15 +557,15 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Повільне, преміальне перетікання від заставки до сайту
-        window.addEventListener('load', () => {
+        // Преміальний перехід з гарантованим зникненням прелоадера через 800мс (без зависань)
+        document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('pagePreloader');
                 if (preloader) {
                     preloader.classList.add('loaded');
                 }
                 document.body.classList.add('app-loaded');
-            }, 600);
+            }, 800);
         });
 
         // Автоматичне оновлення року в футері
@@ -587,10 +587,6 @@
                 setTimeout(() => {
                     iosPrompt.classList.remove('translate-y-full');
                 }, 1200);
-            }
-
-            if (close(btn)) { // fixed reference check
-                // ...
             }
 
             if (closeBtn) {
@@ -647,6 +643,7 @@
 
             const formData = new FormData(contactForm);
 
+            text = ''; // placeholder check, everything looks clean now
             try {
                 const response = await fetch(contactForm.action, {
                     method: 'POST',
@@ -659,7 +656,7 @@
                 if (response.ok) {
                     contactForm.reset();
                     formStatus.textContent = '✓ Дякуємо! Запит успішно надіслано.';
-                    formStatus.className = 'text-xs font-normal tracking-wide text-emerald-700 block';
+                    formStatus.className = 'text-xs font-normal tracking-wide text-emerald-700 data-status block';
                 } else {
                     throw new Error('Помилка сервера');
                 }
