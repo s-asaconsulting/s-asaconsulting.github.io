@@ -1,0 +1,118 @@
+# =====================================================================
+# КОНФІГУРАЦІЯ СЕРВЕРА ДЛЯ S-ASA.COM.UA (SEO, PWA, БЕЗПЕКА, КЕШ)
+# =====================================================================
+
+# 1. БАЗОВІ НАЛАШТУВАННЯ ТА КОДУВАННЯ
+AddDefaultCharset UTF-8
+DirectoryIndex index.html
+
+# Заборона перегляду вмісту папок, якщо в них немає index-файлу
+Options -Indexes
+
+# ---------------------------------------------------------------------
+# 2. ПРАВИЛЬНІ MIME-ТИПИ ДЛЯ PWA ТА СУЧАСНИХ ФОРМАТІВ
+# ---------------------------------------------------------------------
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest .json
+    AddType application/javascript .js
+    AddType image/svg+xml .svg
+    AddType image/webp .webp
+    AddType font/woff2 .woff2
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 3. 301 РЕДІРЕКТИ: HTTPS + БЕЗ WWW + ПРИБИРАННЯ /index.html (SEO)
+# ---------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 3.1. Якщо зайшли по HTTP або з WWW — перенаправляємо на https://s-asa.com.ua
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} ^www\. [NC]
+    RewriteRule ^ https://s-asa.com.ua%{REQUEST_URI} [L,R=301]
+
+    # 3.2. Прибираємо /index.html з адресного рядка (захист від дублів головної сторінки)
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+    RewriteRule ^index\.html$ https://s-asa.com.ua/ [L,R=301]
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 4. СТИСНЕННЯ ФАЙЛІВ (GZIP / DEFLATE) — ПРИСКОРЕННЯ ЗАВАНТАЖЕННЯ В 4-5 РАЗІВ
+# ---------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/manifest+json
+    AddOutputFilterByType DEFLATE application/ld+json
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/xml
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 5. РОЗУМНЕ КЕШУВАННЯ З УРАХУВАННЯМ PWA (SERVICE WORKER)
+# ---------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # КРИТИЧНО ДЛЯ PWA: HTML, Service Worker та Маніфест завжди перевіряють оновлення
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType application/manifest+json "access plus 0 seconds"
+    ExpiresByType application/json "access plus 0 seconds"
+
+    # Медіафайли та графіка (LOGO.png, bas-service.jpg) — кешуємо надовго
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # Шрифти та стилі
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Сувора заборона жорсткого кешування для sw.js, index.html та site.webmanifest
+    # Це гарантує, що клієнти миттєво побачать оновлення на сайті
+    <FilesMatch "^(index\.html|sw\.js|site\.webmanifest)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+
+    # Тривале кешування для зображень (LOGO.png, bas-service.jpg)
+    <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # -----------------------------------------------------------------
+    # 6. ЗАГОЛОВКИ БЕЗПЕКИ БРАУЗЕРА (SECURITY HEADERS)
+    # -----------------------------------------------------------------
+    # Захист від відкриття вашого сайту в чужих iframe (Clickjacking)
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Заборона браузеру "вгадувати" MIME-типи файлів (захист від XSS-ін'єкцій)
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Безпечна передача реферера (не блокує роботу форми formsubmit.co)
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Примусове використання HTTPS протягом 1 року (HSTS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 7. ЗАХИСТ СИСТЕМНИХ ФАЙЛІВ
+# ---------------------------------------------------------------------
+# Заборона прямого доступу з браузера до самого .htaccess та прихованих файлів (.git, .env)
+<FilesMatch "^\.(?!well-known)">
+    Require all denied
+</FilesMatch>
+
+# Якщо користувач ввів неіснуючу сторінку — м'яко повертаємо на головну
+ErrorDocument 404 /index.html
