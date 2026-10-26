@@ -622,7 +622,7 @@
         </div>
     </footer>
 
-    <!-- Спливаюча підказка встановлення додатку для iOS Safari (z-[60] вище за кнопку скролу) -->
+    <!-- Спливаюча підказка встановлення додатку для iOS Safari -->
     <div id="iosPwaPrompt" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-24 sm:w-96 z-[60] bg-obsidian text-alabaster border border-bronze/40 p-4 sm:p-5 shadow-2xl opacity-0 translate-y-8 pointer-events-none transition-all duration-500">
         <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3.5">
@@ -652,7 +652,32 @@
         </div>
     </div>
 
-    <!-- Кнопка скролу вгору (З'являється при прокручуванні вниз) -->
+    <!-- Спливаюча підказка встановлення додатку для Android Chrome -->
+    <div id="androidPwaPrompt" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-24 sm:w-96 z-[60] bg-obsidian text-alabaster border border-bronze/40 p-4 sm:p-5 shadow-2xl opacity-0 translate-y-8 pointer-events-none transition-all duration-500">
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3.5">
+                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain bg-alabaster p-1 shrink-0 rounded-sm">
+                <div>
+                    <h4 class="font-serif text-base sm:text-lg text-alabaster leading-tight">Встановити додаток С-АСА</h4>
+                    <p class="text-[11px] text-white/70 font-light mt-0.5 leading-snug">Швидкий доступ до консалтингу з екрана вашого телефону</p>
+                </div>
+            </div>
+            <button id="closeAndroidPrompt" aria-label="Закрити підказку" class="text-white/50 hover:text-bronze transition p-1 -mt-1 -mr-1">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+            <span class="text-[11px] text-white/80 font-light">Додати на головний екран пристрою</span>
+            <button id="installAndroidApp" class="bg-bronze text-obsidian px-4 py-2 text-[11px] uppercase tracking-[0.15em] font-medium hover:bg-bronzeDark transition-colors cursor-pointer">
+                Встановити
+            </button>
+        </div>
+    </div>
+
+    <!-- Кнопка скролу вгору -->
     <button id="scrollToTopBtn" 
             aria-label="Прокрутити нагору"
             class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-11 h-11 sm:w-12 sm:h-12 bg-obsidian text-alabaster border border-bronze/40 flex items-center justify-center shadow-xl opacity-0 translate-y-4 pointer-events-none transition-all duration-500 hover:bg-bronzeDark focus:outline-none cursor-pointer">
@@ -663,6 +688,15 @@
 
     <!-- СКРИПТИ -->
     <script>
+        // Реєстрація Service Worker (Пункт 1)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker успішно зареєстровано:', reg.scope))
+                    .catch(err => console.log('Помилка реєстрації Service Worker:', err));
+            });
+        }
+
         // Прелоадер: надійне приховування після завантаження
         const preloader = document.getElementById('pagePreloader');
 
@@ -722,7 +756,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Надійне відстеження появи кнопки через IntersectionObserver
+        // Надійне відстеження появи кнопки скролу
         const topSentinel = document.getElementById('topSentinel');
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
@@ -730,11 +764,9 @@
             const scrollObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Якщо ми на самій горі сторінки — ховаємо кнопку
                         scrollToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
                         scrollToTopBtn.classList.remove('opacity-100', 'translate-y-0');
                     } else {
-                        // Якщо прокрутили вниз — показуємо кнопку
                         scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
                         scrollToTopBtn.classList.add('opacity-100', 'translate-y-0');
                     }
@@ -751,48 +783,93 @@
             });
         });
 
-        // Логіка показу підказки встановлення PWA для iOS (iPhone / iPad) з безпечним сховищем
+        // Логіка показу підказки встановлення PWA для iOS Safari
         const iosPwaPrompt = document.getElementById('iosPwaPrompt');
         const closePwaPrompt = document.getElementById('closePwaPrompt');
 
         if (iosPwaPrompt && closePwaPrompt) {
-            // 1. Перевіряємо, чи це пристрій Apple (iPhone / iPad / iPod)
             const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent) || 
                           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
             
-            // 2. Перевіряємо, чи це справжній Safari (відсікаємо вбудовані браузери Telegram, Viber тощо)
             const isSafari = /Safari/i.test(window.navigator.userAgent) && 
                              !/CriOS|FxiOS|OPiOS|Telegram|Instagram|FBAN|FBAV|Viber/i.test(window.navigator.userAgent);
             
-            // 3. Перевіряємо, чи сайт ВЖЕ не відкрито як встановлений додаток
             const isInStandaloneMode = ('standalone' in window.navigator && window.navigator.standalone) || 
                                        window.matchMedia('(display-mode: standalone)').matches;
             
-            // 4. Безпечне зчитування localStorage (захист від виключень у приватному режимі)
             let isPromptDismissed = false;
             try {
                 isPromptDismissed = localStorage.getItem('sasa_ios_pwa_dismissed');
-            } catch (e) {
-                // У разі блокування сховища продовжуємо роботу без збою скриптів
-            }
+            } catch (e) {}
 
             if (isIos && isSafari && !isInStandaloneMode && !isPromptDismissed) {
-                // Показуємо банер через 3.5 секунди (після завершення роботи прелоадера)
                 setTimeout(() => {
                     iosPwaPrompt.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
                     iosPwaPrompt.classList.add('opacity-100', 'translate-y-0');
                 }, 3500);
             }
 
-            // Закриття банера та безпечний запис у localStorage
             closePwaPrompt.addEventListener('click', () => {
                 iosPwaPrompt.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
                 iosPwaPrompt.classList.remove('opacity-100', 'translate-y-0');
                 try {
                     localStorage.setItem('sasa_ios_pwa_dismissed', 'true');
-                } catch (e) {
-                    // Ігноруємо обмеження сховища
+                } catch (e) {}
+            });
+        }
+
+        // Налаштування події beforeinstallprompt для Android (Пункт 3)
+        let deferredPrompt;
+        const androidPwaPrompt = document.getElementById('androidPwaPrompt');
+        const installAndroidApp = document.getElementById('installAndroidApp');
+        const closeAndroidPrompt = document.getElementById('closeAndroidPrompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Зупиняємо стандартний міні-банер браузера внизу
+            e.preventDefault();
+            deferredPrompt = e;
+
+            let isAndroidDismissed = false;
+            try {
+                isAndroidDismissed = localStorage.getItem('sasa_android_pwa_dismissed');
+            } catch (err) {}
+
+            // Показуємо наш власний стилізований банер
+            if (androidPwaPrompt && !isAndroidDismissed) {
+                setTimeout(() => {
+                    androidPwaPrompt.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                    androidPwaPrompt.classList.add('opacity-100', 'translate-y-0');
+                }, 3500);
+            }
+        });
+
+        if (installAndroidApp) {
+            installAndroidApp.addEventListener('click', async () => {
+                if (!deferredPrompt) return;
+                
+                // Викликаємо нативне системне вікно встановлення від Android
+                deferredPrompt.prompt();
+                
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`Вибір встановлення користувача: ${outcome}`);
+                
+                deferredPrompt = null;
+                
+                // Ховаємо наш банер
+                if (androidPwaPrompt) {
+                    androidPwaPrompt.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                    androidPwaPrompt.classList.remove('opacity-100', 'translate-y-0');
                 }
+            });
+        }
+
+        if (closeAndroidPrompt && androidPwaPrompt) {
+            closeAndroidPrompt.addEventListener('click', () => {
+                androidPwaPrompt.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                androidPwaPrompt.classList.remove('opacity-100', 'translate-y-0');
+                try {
+                    localStorage.setItem('sasa_android_pwa_dismissed', 'true');
+                } catch (err) {}
             });
         }
 
