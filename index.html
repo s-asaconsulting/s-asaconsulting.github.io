@@ -9,7 +9,6 @@
     ====================================================================== -->
     <title>С-АСА КОНСАЛТИНГ — Автоматизація і впровадження 1С / BAS</title>
     <meta name="description" content="С-АСА КОНСАЛТИНГ (Володимир Латиш): автоматизація бізнес-процесів, впровадження, програмування, налаштування та доопрацювання 1С / BAS. Перехід на нові конфігурації.">
-    <meta name="keywords" content="Автоматизація бізнес-процесів, Аналіз бізнес-процесів, Автоматизація 1С, Автоматизація BAS, Впровадження 1С, Впровадження BAS, Програмування 1С, Програмування BAS, Програміст 1С, Програміст BAS, Налаштування 1С, Налаштування BAS, Доопрацювання 1С, Доопрацювання BAS, Розробник 1С, Розробник BAS, Перехід з однієї на іншу конфігурацію 1С, Перехід з однієї на іншу конфігурацію BAS, Володимир Латиш, Латиш Володимир, 0738003775, 0678003775, SASACONSULTING, S-ASA CONSULTING, САСА КОНСАЛТИНГ">
     <meta name="author" content="Володимир Латиш — С-АСА КОНСАЛТИНГ">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://s-asa.com.ua/">
@@ -203,6 +202,7 @@
         #pagePreloader.loaded {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
         }
 
         #pagePreloader.loaded .preloader-content {
@@ -336,7 +336,7 @@
     </header>
 
     <!-- Мобільне виїзне меню (Overlay) -->
-    <div id="mobileMenu" class="fixed inset-0 z-40 bg-alabaster/98 backdrop-blur-xl flex flex-col justify-center items-center px-6 transform translate-x-full transition-transform duration-500 md:hidden">
+    <div id="mobileMenu" class="fixed inset-0 z-40 bg-alabaster/[0.98] backdrop-blur-xl flex flex-col justify-center items-center px-6 transform translate-x-full transition-transform duration-500 md:hidden">
         <nav class="flex flex-col items-center space-y-8 text-sm uppercase tracking-[0.25em] text-obsidian font-normal">
             <a href="#services" class="mobile-link nav-link">Послуги</a>
             <a href="#philosophy" class="mobile-link nav-link">Підхід</a>
@@ -442,7 +442,7 @@
                                 Автоматизація бізнес-процесів (BAS)
                             </h3>
 
-                            <blockquote class="text-xs sm:text-sm text-bronzeDark italic border-l border-bronze pl-3 sm:pl-4 py-1 mb-6 sm:mb-8 font-serif sm:text-lg">
+                            <blockquote class="text-xs sm:text-lg text-bronzeDark italic border-l border-bronze pl-3 sm:pl-4 py-1 mb-6 sm:mb-8 font-serif">
                                 «Індивідуальна адаптація систем під реальні потреби та масштаб вашого підприємства.»
                             </blockquote>
 
@@ -496,22 +496,22 @@
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-white/10 pt-10 sm:pt-12 reveal">
                     <div class="pr-4">
                         <span class="font-serif text-bronze text-xl italic block mb-3">Етап 01</span>
-                        <h4 class="text-lg font-normal mb-2">Аудит процесів</h4>
+                        <h3 class="text-lg font-normal mb-2">Аудит процесів</h3>
                         <p class="text-xs text-white/60 leading-relaxed">Глибоке вивчення поточної структури підприємства, виявлення вузьких місць та дублювання операцій.</p>
                     </div>
                     <div class="pr-4">
                         <span class="font-serif text-bronze text-xl italic block mb-3">Етап 02</span>
-                        <h4 class="text-lg font-normal mb-2">Архітектура системи</h4>
+                        <h3 class="text-lg font-normal mb-2">Архітектура системи</h3>
                         <p class="text-xs text-white/60 leading-relaxed">Підбір конфігурації BAS та проєктування логіки документообігу відповідно до специфіки бізнесу.</p>
                     </div>
                     <div class="pr-4">
                         <span class="font-serif text-bronze text-xl italic block mb-3">Етап 03</span>
-                        <h4 class="text-lg font-normal mb-2">Інтеграція та навчання</h4>
+                        <h3 class="text-lg font-normal mb-2">Інтеграція та навчання</h3>
                         <p class="text-xs text-white/60 leading-relaxed">Налаштування програмного середовища, підключення обладнання та підготовка вашої команди.</p>
                     </div>
                     <div class="pr-4">
                         <span class="font-serif text-bronze text-xl italic block mb-3">Етап 04</span>
-                        <h4 class="text-lg font-normal mb-2">Підтримка та супровід</h4>
+                        <h3 class="text-lg font-normal mb-2">Підтримка та супровід</h3>
                         <p class="text-xs text-white/60 leading-relaxed">Системний технічний супровід, стабільна робота бази даних та подальший розвиток ІТ-інфраструктури.</p>
                     </div>
                 </div>
@@ -622,6 +622,36 @@
         </div>
     </footer>
 
+    <!-- Спливаюча підказка встановлення додатку для iOS Safari (z-[60] вище за кнопку скролу) -->
+    <div id="iosPwaPrompt" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-24 sm:w-96 z-[60] bg-obsidian text-alabaster border border-bronze/40 p-4 sm:p-5 shadow-2xl opacity-0 translate-y-8 pointer-events-none transition-all duration-500">
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3.5">
+                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain bg-alabaster p-1 shrink-0 rounded-sm">
+                <div>
+                    <h4 class="font-serif text-base sm:text-lg text-alabaster leading-tight">Встановити додаток С-АСА</h4>
+                    <p class="text-[11px] text-white/70 font-light mt-0.5 leading-snug">Швидкий доступ до консалтингу прямо з екрана вашого iPhone</p>
+                </div>
+            </div>
+            <button id="closePwaPrompt" aria-label="Закрити підказку" class="text-white/50 hover:text-bronze transition p-1 -mt-1 -mr-1">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="mt-3.5 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[11px] text-white/80 font-light">
+            <span class="flex items-center gap-1.5">
+                1. Натисніть <strong class="text-bronze font-normal">«Поділитися»</strong>
+                <svg class="w-4 h-4 text-bronze inline-block shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+            </span>
+            <span>2. Оберіть <strong class="text-bronze font-normal">«На початковий екран» ➕</strong></span>
+        </div>
+    </div>
+
     <!-- Кнопка скролу вгору (З'являється при прокручуванні вниз) -->
     <button id="scrollToTopBtn" 
             aria-label="Прокрутити нагору"
@@ -633,15 +663,21 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Прелоадер: приховування після завантаження
+        // Прелоадер: надійне приховування після завантаження
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
-            window.addEventListener('load', () => {
+            const hidePreloader = () => {
                 setTimeout(() => {
                     preloader.classList.add('loaded');
                 }, 1600);
-            });
+            };
+
+            if (document.readyState === 'complete') {
+                hidePreloader();
+            } else {
+                window.addEventListener('load', hidePreloader);
+            }
         }
 
         document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -714,6 +750,51 @@
                 behavior: 'smooth'
             });
         });
+
+        // Логіка показу підказки встановлення PWA для iOS (iPhone / iPad) з безпечним сховищем
+        const iosPwaPrompt = document.getElementById('iosPwaPrompt');
+        const closePwaPrompt = document.getElementById('closePwaPrompt');
+
+        if (iosPwaPrompt && closePwaPrompt) {
+            // 1. Перевіряємо, чи це пристрій Apple (iPhone / iPad / iPod)
+            const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent) || 
+                          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            
+            // 2. Перевіряємо, чи це справжній Safari (відсікаємо вбудовані браузери Telegram, Viber тощо)
+            const isSafari = /Safari/i.test(window.navigator.userAgent) && 
+                             !/CriOS|FxiOS|OPiOS|Telegram|Instagram|FBAN|FBAV|Viber/i.test(window.navigator.userAgent);
+            
+            // 3. Перевіряємо, чи сайт ВЖЕ не відкрито як встановлений додаток
+            const isInStandaloneMode = ('standalone' in window.navigator && window.navigator.standalone) || 
+                                       window.matchMedia('(display-mode: standalone)').matches;
+            
+            // 4. Безпечне зчитування localStorage (захист від виключень у приватному режимі)
+            let isPromptDismissed = false;
+            try {
+                isPromptDismissed = localStorage.getItem('sasa_ios_pwa_dismissed');
+            } catch (e) {
+                // У разі блокування сховища продовжуємо роботу без збою скриптів
+            }
+
+            if (isIos && isSafari && !isInStandaloneMode && !isPromptDismissed) {
+                // Показуємо банер через 3.5 секунди (після завершення роботи прелоадера)
+                setTimeout(() => {
+                    iosPwaPrompt.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                    iosPwaPrompt.classList.add('opacity-100', 'translate-y-0');
+                }, 3500);
+            }
+
+            // Закриття банера та безпечний запис у localStorage
+            closePwaPrompt.addEventListener('click', () => {
+                iosPwaPrompt.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                iosPwaPrompt.classList.remove('opacity-100', 'translate-y-0');
+                try {
+                    localStorage.setItem('sasa_ios_pwa_dismissed', 'true');
+                } catch (e) {
+                    // Ігноруємо обмеження сховища
+                }
+            });
+        }
 
         // Contact form handler
         const contactForm = document.getElementById('contactForm');
