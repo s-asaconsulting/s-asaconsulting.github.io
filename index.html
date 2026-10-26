@@ -36,6 +36,13 @@
     <link id="faviconLink" rel="icon" type="image/png" href="LOGO.png">
     <link id="appleTouchIconLink" rel="apple-touch-icon" href="LOGO.png">
 
+    <!-- Синхронне визначення standalone-режиму до рендерингу для усунення мерехтіння -->
+    <script>
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            document.documentElement.classList.add('is-standalone');
+        }
+    </script>
+
     <!-- Мікророзмітка Schema.org -->
     <script type="application/ld+json">
     {
@@ -92,10 +99,27 @@
             text-size-adjust: 100%;
             -webkit-tap-highlight-color: transparent;
         }
-        body {
+        
+        /* Запобігаємо появі скролу та мікрозсувів під час завантаження */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             background-color: #FAF9F6;
-            color: #18181B;
+        }
+
+        html.is-standalone, html.is-standalone body {
+            background-color: #18181B;
+        }
+
+        body.app-loaded {
             overflow-x: hidden;
+            overflow-y: auto;
+            background-color: #FAF9F6;
+        }
+
+        body {
+            color: #18181B;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -120,6 +144,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #FAF9F6;
+            color: #18181B;
+            transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        visibility 1.6s ease, 
+                        background-color 1.6s ease;
+        }
+
+        /* Темна тема для standalone додатків (працює миттєво через клас на html) */
+        html.is-standalone #pagePreloader {
+            background-color: #18181B;
+            color: #FAF9F6;
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        visibility 1.8s ease, 
+                        background-color 1.8s ease, 
+                        backdrop-filter 1.8s ease,
+                        -webkit-backdrop-filter 1.8s ease;
         }
 
         .preloader-logo-wrap {
@@ -133,6 +173,11 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: translateZ(0);
+            animation: logoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes logoIntro {
+            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
+            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
         }
 
         .preloader-logo {
@@ -141,44 +186,24 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: translateZ(0);
+            animation: logoGlow 3.2s ease-in-out infinite 1.4s;
         }
-
-        /* --- 1. СВІТЛА ТЕМА ДЛЯ БРАУЗЕРІВ (Адаптована у фірмових кольорах) --- */
-        #pagePreloader.theme-light {
-            background-color: #FAF9F6;
-            color: #18181B;
-            transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                        visibility 1.6s ease, 
-                        background-color 1.6s ease;
-        }
-
-        #pagePreloader.theme-light .preloader-logo-wrap {
-            animation: lightLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes lightLogoIntro {
-            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
-            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
-        }
-
-        #pagePreloader.theme-light .preloader-logo {
-            animation: lightLogoGlow 3.2s ease-in-out infinite 1.4s;
-        }
-        @keyframes lightLogoGlow {
+        @keyframes logoGlow {
             0%, 100% { transform: scale(1) translateZ(0); }
             50% { transform: scale(1.045) translateZ(0); }
         }
 
-        #pagePreloader.theme-light .preloader-title {
+        .preloader-title {
             opacity: 0;
             letter-spacing: 0.35em;
-            animation: cinematicLightTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            animation: cinematicTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
         }
-        @keyframes cinematicLightTitle {
+        @keyframes cinematicTitle {
             0% { opacity: 0; transform: translateY(16px) translateZ(0); }
-            100% { opacity: 0.9; transform: translateY(0) translateZ(0); }
+            100% { opacity: 0.95; transform: translateY(0) translateZ(0); }
         }
 
-        #pagePreloader.theme-light .preloader-line-track {
+        .preloader-line-track {
             width: 150px;
             height: 1.5px;
             background-color: rgba(24, 24, 27, 0.08);
@@ -187,107 +212,48 @@
             margin-top: 6px;
             border-radius: 2px;
         }
+        html.is-standalone .preloader-line-track {
+            background-color: rgba(250, 249, 246, 0.12);
+        }
 
-        #pagePreloader.theme-light .preloader-line-fill {
+        .preloader-line-fill {
             position: absolute;
             top: 0;
             left: 0;
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
-            animation: fillProgressLight 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            animation: fillProgress 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
-        @keyframes fillProgressLight {
-            0% { width: 0%; opacity: 0.5; }
-            100% { width: 100%; opacity: 1; }
-        }
-
-        #pagePreloader.theme-light .preloader-content {
-            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #pagePreloader.theme-light.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #pagePreloader.theme-light.loaded .preloader-content {
-            transform: scale(1.05) translateY(-20px);
-            opacity: 0;
-        }
-
-        /* --- 2. ТЕМНА ТЕМА ДЛЯ МОБІЛЬНИХ ДОДАТКІВ APPLE ТА ANDROID --- */
-        #pagePreloader.theme-dark {
-            background-color: #18181B;
-            color: #FAF9F6;
-            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        visibility 1.8s ease, 
-                        background-color 1.8s ease, 
-                        backdrop-filter 1.8s ease,
-                        -webkit-backdrop-filter 1.8s ease;
-        }
-
-        #pagePreloader.theme-dark .preloader-logo-wrap {
-            animation: appLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes appLogoIntro {
-            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
-            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
-        }
-
-        #pagePreloader.theme-dark .preloader-logo {
-            animation: appLogoGlow 3.2s ease-in-out infinite 1.4s;
-        }
-        @keyframes appLogoGlow {
-            0%, 100% { transform: scale(1) translateZ(0); }
-            50% { transform: scale(1.045) translateZ(0); }
-        }
-
-        #pagePreloader.theme-dark .preloader-title {
-            opacity: 0;
-            letter-spacing: 0.35em;
-            animation: cinematicAppTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
-        }
-        @keyframes cinematicAppTitle {
-            0% { opacity: 0; transform: translateY(16px) translateZ(0); }
-            100% { opacity: 0.95; transform: translateY(0) translateZ(0); }
-        }
-
-        #pagePreloader.theme-dark .preloader-line-track {
-            width: 150px;
-            height: 1.5px;
-            background-color: rgba(250, 249, 246, 0.12);
-            overflow: hidden;
-            position: relative;
-            margin-top: 6px;
-            border-radius: 2px;
-        }
-        #pagePreloader.theme-dark .preloader-line-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 0%;
+        html.is-standalone .preloader-line-fill {
             background: linear-gradient(90deg, transparent, #B89B72, #FAF9F6, #B89B72);
-            animation: fillProgressApp 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
-        @keyframes fillProgressApp {
+        @keyframes fillProgress {
             0% { width: 0%; opacity: 0.5; }
             100% { width: 100%; opacity: 1; }
         }
 
-        #pagePreloader.theme-dark .preloader-content {
+        .preloader-content {
             transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
                         opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
                         filter 1.4s ease;
         }
-        #pagePreloader.theme-dark.loaded {
+
+        #pagePreloader.loaded {
             opacity: 0;
             visibility: hidden;
+        }
+        html.is-standalone #pagePreloader.loaded {
             background-color: rgba(24, 24, 27, 0.15);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
         }
-        #pagePreloader.theme-dark.loaded .preloader-content {
+
+        #pagePreloader.loaded .preloader-content {
+            transform: scale(1.05) translateY(-20px);
+            opacity: 0;
+        }
+        html.is-standalone #pagePreloader.loaded .preloader-content {
             transform: scale(1.08) translateY(-24px);
             opacity: 0;
             filter: blur(8px);
@@ -360,7 +326,7 @@
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
     <!-- Універсальний прелоадер -->
-    <div id="pagePreloader" style="display: none;">
+    <div id="pagePreloader">
         <div class="preloader-content flex flex-col items-center gap-5">
             <div class="preloader-logo-wrap">
                 <img src="LOGO.png" alt="С-АСА Логотип" class="max-h-full max-w-full object-contain preloader-logo" width="120" height="120">
@@ -731,19 +697,12 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Універсальний прелоадер: у додатку — темний, у браузері — вишуканий світлий у кольорах сайту
+        // Прелоадер: приховування та розблокування прокрутки після завантаження
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
-            preloader.style.display = 'flex';
             const holdTime = isStandalone ? 2000 : 1600;
-
-            if (isStandalone) {
-                preloader.classList.add('theme-dark');
-            } else {
-                preloader.classList.add('theme-light');
-            }
 
             window.addEventListener('load', () => {
                 setTimeout(() => {
@@ -806,7 +765,7 @@
                     iosPrompt.classList.add('translate-y-full');
                     localStorage.setItem('iosPromptDismissed', 'true');
                     setTimeout(() => {
-                        iosPrompt.classList.add('hidden');
+                        iosPrompt.hidden = true;
                     }, 500);
                 });
             }
