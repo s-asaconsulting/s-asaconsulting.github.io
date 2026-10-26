@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    
+    <!-- =====================================================================
+         БЛОК SEO-ТЕГІВ ДЛЯ ПОШУКОВИХ СИСТЕМ (GOOGLE)
+    ====================================================================== -->
+    <title>С-АСА КОНСАЛТИНГ — Автоматизація і впровадження 1С / BAS</title>
+    <meta name="description" content="С-АСА КОНСАЛТИНГ (Володимир Латиш): автоматизація бізнес-процесів, впровадження, програмування, налаштування та доопрацювання 1С / BAS. Перехід на нові конфігурації.">
+    <meta name="author" content="Володимир Латиш — С-АСА КОНСАЛТИНГ">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://s-asa.com.ua/">
+
+    <!-- Налаштування мобільного додатка та статус-бару -->
+    <meta name="apple-mobile-web-app-title" content="С-АСА">
+    <meta name="application-name" content="С-АСА">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FAF9F6">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Open Graph / Соцмережі -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://s-asa.com.ua/">
+    <meta property="og:title" content="С-АСА КОНСАЛТИНГ — Автоматизація бізнес-процесів та облік на базі 1С / BAS">
+    <meta property="og:description" content="Професійне впровадження, програмування, налаштування і доопрацювання 1С / BAS та аналіз бізнес-процесів від команди Володимира Латиша.">
+    <meta property="og:image" content="https://s-asa.com.ua/LOGO.png">
+    <meta property="og:locale" content="uk_UA">
+
+    <!-- Favicon -->
+    <link id="faviconLink" rel="icon" type="image/png" href="LOGO.png">
+    <link id="appleTouchIconLink" rel="apple-touch-icon" href="LOGO.png">
+
+    <!-- Мікророзмітка Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "С-АСА КОНСАЛТИНГ",
+      "alternateName": ["S-ASA CONSULTING", "SASACONSULTING", "САСА КОНСАЛТИНГ"],
+      "founder": {
+        "@type": "Person",
+        "name": "Володимир Латиш"
+      },
+      "url": "https://s-asa.com.ua/",
+      "logo": "https://s-asa.com.ua/LOGO.png",
+      "description": "Автоматизація бізнес-процесів, аналіз, впровадження, програмування, налаштування та доопрацювання 1С / BAS по всій території України.",
+      "email": "sasa.consulting.info@gmail.com",
+      "telephone": ["+380738003775", "+380678003775"],
+      "areaServed": "UA"
+    }
+    </script>
+
+    <!-- Преміальні шрифти з повною підтримкою української кирилиці -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Скомпільовані стилі (замість важкого скрипту Tailwind CDN) -->
+    <style>
+        /* 1. БАЗОВИЙ РЕСЕТ ТА ЗМІННІ (TAILWIND PREFLIGHT) */
+        *, ::before, ::after {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: rgba(24, 24, 27, 0.1);
+        }
+        html {
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            -moz-tab-size: 4;
+            tab-size: 4;
+            font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+            height: 100%;
+        }
+        body {
+            margin: 0;
+            line-height: inherit;
+            min-height: 100%;
+            background-color: #FAF9F6;
+            color: #18181B;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            overflow-x: clip;
+        }
+        h1, h2, h3, h4, p, blockquote, ul { margin: 0; padding: 0; }
+        ul { list-style: none; }
+        a { color: inherit; text-decoration: inherit; }
+        button, input, textarea {
+            font-family: inherit;
+            font-size: 100%;
+            font-weight: inherit;
+            line-height: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+        }
+        button { cursor: pointer; }
+        img, svg { display: block; vertical-align: middle; max-width: 100%; height: auto; }
+        input::placeholder, textarea::placeholder { opacity: 1; color: rgba(82, 82, 91, 0.55); }
+
+        ::selection { background-color: #B89B72; color: #ffffff; }
+
+        /* Захист від закривання секцій фіксованою шапкою при плавному скролі з урахуванням Safe Area */
+        section { scroll-margin-top: calc(90px + env(safe-area-inset-top, 0px)); }
+
+        /* Безпечна зона для iPhone (виріз / Dynamic Island / статус-бар) */
+        header.fixed {
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        /* 2. КОРИСТУВАЦЬКІ АНІМАЦІЇ ТА КОМПОНЕНТИ */
+        #pagePreloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #FAF9F6;
+            color: #18181B;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        visibility 0.8s ease, 
+                        background-color 0.8s ease;
+        }
+        .preloader-logo-wrap {
+            width: 96px;
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center center;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            animation: logoIntro 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes logoIntro {
+            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
+            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
+        }
+        .preloader-logo {
+            transform-origin: center center;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            animation: logoGlow 3.2s ease-in-out infinite 0.8s;
+        }
+        @keyframes logoGlow {
+            0%, 100% { transform: scale(1) translateZ(0); }
+            50% { transform: scale(1.045) translateZ(0); }
+        }
+        .preloader-title {
+            opacity: 0;
+            letter-spacing: 0.35em;
+            animation: cinematicTitle 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+        }
+        @keyframes cinematicTitle {
+            0% { opacity: 0; transform: translateY(16px) translateZ(0); }
+            100% { opacity: 0.95; transform: translateY(0) translateZ(0); }
+        }
+        .preloader-line-track {
+            width: 150px;
+            height: 1.5px;
+            background-color: rgba(24, 24, 27, 0.08);
+            overflow: hidden;
+            position: relative;
+            margin-top: 6px;
+            border-radius: 2px;
+        }
+        .preloader-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
+            animation: fillProgress 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+        }
+        @keyframes fillProgress {
+            0% { width: 0%; opacity: 0.5; }
+            100% { width: 100%; opacity: 1; }
+        }
+        .preloader-content {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                        filter 0.7s ease;
+        }
+        #pagePreloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #pagePreloader.loaded .preloader-content {
+            transform: scale(1.05) translateY(-20px);
+            opacity: 0;
+        }
+        .border-subtle { border-color: rgba(24, 24, 27, 0.1); }
+
+        @keyframes rotateSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulseSubtle {
+            0%, 100% { opacity: 0.35; transform: scale(1); }
+            50% { opacity: 0.55; transform: scale(1.03); }
+        }
+        .svg-orbit { animation: rotateSlow 60s linear infinite; transform-origin: center; }
+        .svg-pulse { animation: pulseSubtle 10s ease-in-out infinite; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .img-editorial { transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease; }
+        .group:hover .img-editorial { transform: scale(1.04); }
+
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #B89B72;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .logo-blend {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .logo-container:hover .logo-blend { transform: scale(1.04); }
+
+        /* 3. УТИЛІТАРНІ КЛАСИ TAILWIND (СКОМПІЛЬОВАНІ) */
+        .fixed { position: fixed; }
+        .absolute { position: absolute; }
+        .relative { position: relative; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .top-0 { top: 0; }
+        .left-0 { left: 0; }
+        .top-1\/2 { top: 50%; }
+        .right-\[-15\%\] { right: -15%; }
+        .bottom-4 { bottom: 1rem; }
+        .left-4 { left: 1rem; }
+        .right-4 { right: 1rem; }
+        .bottom-6 { bottom: 1.5rem; }
+        .right-6 { right: 1.5rem; }
+        .z-0 { z-index: 0; }
+        .z-10 { z-index: 10; }
+        .z-40 { z-index: 40; }
+        .z-50 { z-index: 50; }
+        .z-\[60\] { z-index: 60; }
+
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .mt-0\.5 { margin-top: 0.125rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-3 { margin-top: 0.75rem; }
+        .mt-3\.5 { margin-top: 0.875rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-12 { margin-top: 3rem; }
+        .mt-16 { margin-top: 4rem; }
+        .-mt-1 { margin-top: -0.25rem; }
+        .-mr-1 { margin-right: -0.25rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-5 { margin-bottom: 1.25rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+
+        .block { display: block; }
+        .inline-block { display: inline-block; }
+        .flex { display: flex; }
+        .inline-flex { display: inline-flex; }
+        .grid { display: grid; }
+        .hidden { display: none; }
+
+        .h-4 { height: 1rem; }
+        .h-8 { height: 2rem; }
+        .h-9 { height: 2.25rem; }
+        .h-10 { height: 2.5rem; }
+        .h-11 { height: 2.75rem; }
+        .h-20 { height: 5rem; }
+        .h-56 { height: 14rem; }
+        .h-\[1px\] { height: 1px; }
+        .h-\[1\.5px\] { height: 1.5px; }
+        .h-\[320px\] { height: 320px; }
+        .h-full { height: 100%; }
+        .max-h-full { max-height: 100%; }
+        .min-h-screen { min-height: 100vh; }
+
+        .w-4 { width: 1rem; }
+        .w-6 { width: 1.5rem; }
+        .w-9 { width: 2.25rem; }
+        .w-10 { width: 2.5rem; }
+        .w-11 { width: 2.75rem; }
+        .w-48 { width: 12rem; }
+        .w-\[1px\] { width: 1px; }
+        .w-\[320px\] { width: 320px; }
+        .w-auto { width: auto; }
+        .w-full { width: 100%; }
+        .max-w-full { max-width: 100%; }
+        .max-w-md { max-width: 28rem; }
+        .max-w-2xl { max-width: 42rem; }
+        .max-w-3xl { max-width: 48rem; }
+        .max-w-7xl { max-width: 80rem; }
+
+        .shrink-0 { flex-shrink: 0; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .flex-col { flex-direction: column; }
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .items-stretch { align-items: stretch; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .gap-1\.5 { gap: 0.375rem; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-3\.5 { gap: 0.875rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-5 { gap: 1.25rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .gap-12 { gap: 3rem; }
+
+        .space-y-1 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem; }
+        .space-y-1\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.375rem; }
+        .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+        .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
+        .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
+        .space-y-8 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
+        .space-x-8 > :not([hidden]) ~ :not([hidden]) { margin-left: 2rem; }
+
+        .overflow-hidden { overflow: hidden; }
+        .break-all { word-break: break-all; }
+        .rounded-sm { border-radius: 0.125rem; }
+        .border { border-width: 1px; }
+        .border-t { border-top-width: 1px; }
+        .border-b { border-bottom-width: 1px; }
+        .border-l { border-left-width: 1px; }
+
+        .border-bronze { border-color: #B89B72; }
+        .border-bronze\/40 { border-color: rgba(184, 155, 114, 0.4); }
+        .border-obsidian\/15 { border-color: rgba(24, 24, 27, 0.15); }
+        .border-obsidian\/20 { border-color: rgba(24, 24, 27, 0.2); }
+        .border-white\/10 { border-color: rgba(255, 255, 255, 0.1); }
+
+        .bg-alabaster { background-color: #FAF9F6; }
+        .bg-alabaster\/90 { background-color: rgba(250, 249, 246, 0.9); }
+        .bg-alabaster\/\[0\.98\] { background-color: rgba(250, 249, 246, 0.98); }
+        .bg-obsidian { background-color: #18181B; }
+        .bg-obsidian\/10 { background-color: rgba(24, 24, 27, 0.1); }
+        .bg-stone\/50 { background-color: rgba(242, 239, 233, 0.5); }
+        .bg-stone\/60 { background-color: rgba(242, 239, 233, 0.6); }
+        .bg-bronze { background-color: #B89B72; }
+        .bg-transparent { background-color: transparent; }
+        .bg-gradient-to-t {
+            background-image: linear-gradient(to top, rgba(24, 24, 27, 0.3), transparent, transparent);
+        }
+
+        .object-contain { object-fit: contain; }
+        .object-cover { object-fit: cover; }
+
+        .p-1 { padding: 0.25rem; }
+        .p-4 { padding: 1rem; }
+        .p-5 { padding: 1.25rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .px-7 { padding-left: 1.75rem; padding-right: 1.75rem; }
+        .px-10 { padding-left: 2.5rem; padding-right: 2.5rem; }
+        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-3\.5 { padding-top: 0.875rem; padding-bottom: 0.875rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+        .pt-2 { padding-top: 0.5rem; }
+        .pt-3 { padding-top: 0.75rem; }
+        .pt-5 { padding-top: 1.25rem; }
+        .pt-6 { padding-top: 1.5rem; }
+        .pt-8 { padding-top: 2rem; }
+        .pt-10 { padding-top: 2.5rem; }
+        .pt-28 { padding-top: 7rem; }
+        .pb-2\.5 { padding-bottom: 0.625rem; }
+        .pb-16 { padding-bottom: 4rem; }
+        .pl-3 { padding-left: 0.75rem; }
+        .pr-4 { padding-right: 1rem; }
+
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .font-sans { font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .font-serif { font-family: "Cormorant Garamond", Georgia, serif; }
+
+        .text-\[8px\] { font-size: 8px; }
+        .text-\[11px\] { font-size: 11px; }
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+
+        .font-light { font-weight: 300; }
+        .font-normal { font-weight: 400; }
+        .font-medium { font-weight: 500; }
+        .italic { font-style: italic; }
+        .uppercase { text-transform: uppercase; }
+
+        .leading-none { line-height: 1; }
+        .leading-tight { line-height: 1.25; }
+        .leading-snug { line-height: 1.375; }
+        .leading-relaxed { line-height: 1.625; }
+        .leading-\[1\.15\] { line-height: 1.15; }
+
+        .tracking-wide { letter-spacing: 0.025em; }
+        .tracking-wider { letter-spacing: 0.05em; }
+        .tracking-\[0\.15em\] { letter-spacing: 0.15em; }
+        .tracking-\[0\.18em\] { letter-spacing: 0.18em; }
+        .tracking-\[0\.2em\] { letter-spacing: 0.2em; }
+        .tracking-\[0\.25em\] { letter-spacing: 0.25em; }
+
+        .text-alabaster { color: #FAF9F6; }
+        .text-obsidian { color: #18181B; }
+        .text-graphite { color: #52525B; }
+        .text-bronze { color: #B89B72; }
+        .text-bronzeDark { color: #9A7B50; }
+        .text-white\/50 { color: rgba(255, 255, 255, 0.5); }
+        .text-white\/60 { color: rgba(255, 255, 255, 0.6); }
+        .text-white\/70 { color: rgba(255, 255, 255, 0.7); }
+        .text-white\/80 { color: rgba(255, 255, 255, 0.8); }
+        .text-emerald-700 { color: #047857; }
+        .text-red-700 { color: #b91c1c; }
+
+        .opacity-0 { opacity: 0; }
+        .opacity-35 { opacity: 0.35; }
+        .opacity-100 { opacity: 1; }
+
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        .outline-none { outline: 2px solid transparent; outline-offset: 2px; }
+        .backdrop-blur-md { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .backdrop-blur-xl { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+
+        .transform { transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y, 0)); }
+        .-translate-y-1\/2 { --tw-translate-y: -50%; transform: translate(var(--tw-translate-x, 0), -50%); }
+        .translate-y-0 { --tw-translate-y: 0px; transform: translate(var(--tw-translate-x, 0), 0px); }
+        .translate-y-4 { --tw-translate-y: 1rem; transform: translate(var(--tw-translate-x, 0), 1rem); }
+        .translate-y-8 { --tw-translate-y: 2rem; transform: translate(var(--tw-translate-x, 0), 2rem); }
+        .translate-x-full { --tw-translate-x: 100%; transform: translate(100%, var(--tw-translate-y, 0)); }
+
+        .pointer-events-none { pointer-events: none; }
+        .cursor-pointer { cursor: pointer; }
+        .resize-none { resize: none; }
+
+        .transition { transition-property: color, background-color, border-color, opacity, transform; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+        .transition-all { transition-property: all; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+        .transition-colors { transition-property: color, background-color, border-color; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+        .transition-opacity { transition-property: opacity; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+        .transition-transform { transition-property: transform; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+        .duration-300 { transition-duration: 300ms; }
+        .duration-500 { transition-duration: 500ms; }
+
+        .hover\:border-obsidian:hover { border-color: #18181B; }
+        .hover\:bg-stone:hover { background-color: #F2EFE9; }
+        .hover\:bg-bronzeDark:hover { background-color: #9A7B50; }
+        .hover\:text-bronze:hover { color: #B89B72; }
+        .hover\:text-bronzeDark:hover { color: #9A7B50; }
+        .focus\:border-bronzeDark:focus { border-color: #9A7B50; }
+        .focus\:outline-none:focus { outline: 2px solid transparent; outline-offset: 2px; }
+        .disabled\:opacity-50:disabled { opacity: 0.5; }
+        .group:hover .group-hover\:translate-x-1\.5 { transform: translateX(0.375rem); }
+        .group:hover .group-hover\:text-bronzeDark { color: #9A7B50; }
+
+        /* 4. АДАПТИВНІ МЕДІА-ЗАПИТИ (SM, MD, LG) */
+        @media (min-width: 640px) {
+            .sm\:right-\[-10\%\] { right: -10%; }
+            .sm\:bottom-8 { bottom: 2rem; }
+            .sm\:right-8 { right: 2rem; }
+            .sm\:bottom-24 { bottom: 6rem; }
+            .sm\:right-6 { right: 1.5rem; }
+            .sm\:left-auto { left: auto; }
+            .sm\:mt-1\.5 { margin-top: 0.375rem; }
+            .sm\:mt-10 { margin-top: 2.5rem; }
+            .sm\:mt-24 { margin-top: 6rem; }
+            .sm\:mb-3 { margin-bottom: 0.75rem; }
+            .sm\:mb-4 { margin-bottom: 1rem; }
+            .sm\:mb-6 { margin-bottom: 1.5rem; }
+            .sm\:mb-8 { margin-bottom: 2rem; }
+            .sm\:mb-10 { margin-bottom: 2.5rem; }
+            .sm\:mb-12 { margin-bottom: 3rem; }
+            .sm\:mb-16 { margin-bottom: 4rem; }
+            .sm\:mb-20 { margin-bottom: 5rem; }
+            .sm\:inline { display: inline; }
+            .sm\:h-10 { height: 2.5rem; }
+            .sm\:h-12 { height: 3rem; }
+            .sm\:h-14 { height: 3.5rem; }
+            .sm\:h-24 { height: 6rem; }
+            .sm\:h-80 { height: 20rem; }
+            .sm\:h-\[550px\] { height: 550px; }
+            .sm\:w-8 { width: 2rem; }
+            .sm\:w-10 { width: 2.5rem; }
+            .sm\:w-12 { width: 3rem; }
+            .sm\:w-96 { width: 24rem; }
+            .sm\:w-\[550px\] { width: 550px; }
+            .sm\:w-auto { width: auto; }
+            .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .sm\:flex-row { flex-direction: row; }
+            .sm\:items-center { align-items: center; }
+            .sm\:gap-4 { gap: 1rem; }
+            .sm\:gap-5 { gap: 1.25rem; }
+            .sm\:gap-6 { gap: 1.5rem; }
+            .sm\:gap-8 { gap: 2rem; }
+            .sm\:space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+            .sm\:space-y-8 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
+            .sm\:p-5 { padding: 1.25rem; }
+            .sm\:p-12 { padding: 3rem; }
+            .sm\:p-14 { padding: 3.5rem; }
+            .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .sm\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+            .sm\:px-9 { padding-left: 2.25rem; padding-right: 2.25rem; }
+            .sm\:px-12 { padding-left: 3rem; padding-right: 3rem; }
+            .sm\:py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+            .sm\:py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+            .sm\:py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+            .sm\:py-28 { padding-top: 7rem; padding-bottom: 7rem; }
+            .sm\:pt-4 { padding-top: 1rem; }
+            .sm\:pt-6 { padding-top: 1.5rem; }
+            .sm\:pt-8 { padding-top: 2rem; }
+            .sm\:pt-12 { padding-top: 3rem; }
+            .sm\:pt-32 { padding-top: 8rem; }
+            .sm\:pb-3 { padding-bottom: 0.75rem; }
+            .sm\:pb-20 { padding-bottom: 5rem; }
+            .sm\:pl-4 { padding-left: 1rem; }
+            .sm\:text-right { text-align: right; }
+            .sm\:text-\[9px\] { font-size: 9px; }
+            .sm\:text-xs { font-size: 0.75rem; line-height: 1rem; }
+            .sm\:text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+            .sm\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+            .sm\:text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+            .sm\:text-2xl { font-size: 1.5rem; line-height: 2rem; }
+            .sm\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+            .sm\:text-5xl { font-size: 3rem; line-height: 1; }
+            .sm\:leading-\[1\.08\] { line-height: 1.08; }
+            .sm\:tracking-\[0\.2em\] { letter-spacing: 0.2em; }
+            .sm\:tracking-\[0\.25em\] { letter-spacing: 0.25em; }
+            .sm\:tracking-\[0\.3em\] { letter-spacing: 0.3em; }
+            .sm\:opacity-60 { opacity: 0.6; }
+        }
+
+        @media (min-width: 768px) {
+            .md\:mt-0 { margin-top: 0; }
+            .md\:flex { display: flex; }
+            .md\:hidden { display: none; }
+            .md\:flex-row { flex-direction: row; }
+            .md\:items-end { align-items: flex-end; }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:right-\[2\%\] { right: 2%; }
+            .lg\:col-span-5 { grid-column: span 5 / span 5; }
+            .lg\:col-span-7 { grid-column: span 7 / span 7; }
+            .lg\:h-\[760px\] { height: 760px; }
+            .lg\:w-\[760px\] { width: 760px; }
+            .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+            .lg\:gap-16 { gap: 4rem; }
+            .lg\:space-x-10 > :not([hidden]) ~ :not([hidden]) { margin-left: 2.5rem; }
+            .lg\:space-x-12 > :not([hidden]) ~ :not([hidden]) { margin-left: 3rem; }
+            .lg\:px-12 { padding-left: 3rem; padding-right: 3rem; }
+            .lg\:text-6xl { font-size: 3.75rem; line-height: 1; }
+        }
+
+        /* 5. ПОВАГА ДО СИСТЕМНИХ НАЛАШТУВАНЬ ЗМЕНШЕННЯ РУХУ (ACCESSIBILITY) */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .svg-orbit, .svg-pulse, .preloader-logo { animation: none !important; }
+            .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+        }
+    </style>
+
+    <!-- Захист відображення контенту при вимкненому JavaScript -->
+    <noscript>
+        <style>
+            #pagePreloader { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        </style>
+    </noscript>
+</head>
+<body class="font-sans font-light">
+
+    <!-- Маркер верху сторінки для контролю появи кнопки -->
+    <div id="topSentinel" class="absolute top-0 left-0 w-full h-10 pointer-events-none"></div>
+
+    <!-- Універсальний прелоадер -->
+    <div id="pagePreloader">
+        <div class="preloader-content flex flex-col items-center gap-5">
+            <div class="preloader-logo-wrap">
+                <img src="LOGO.png" alt="С-АСА Логотип" fetchpriority="high" class="max-h-full max-w-full object-contain preloader-logo" width="120" height="120">
+            </div>
+            <span class="preloader-title font-serif text-sm uppercase">С-АСА КОНСАЛТИНГ</span>
+            <div class="preloader-line-track">
+                <div class="preloader-line-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Навігація -->
+    <header class="fixed w-full top-0 z-50 bg-alabaster/90 backdrop-blur-md border-b border-subtle transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex justify-between items-center h-20 sm:h-24">
+                
+                <!-- Об'єднане посилання логотипа для кращої доступності (Accessibility) -->
+                <a href="#" class="flex items-center gap-3 sm:gap-4 logo-container" aria-label="С-АСА КОНСАЛТИНГ — На головну">
+                    <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" fetchpriority="high" class="h-10 sm:h-14 w-auto object-contain logo-blend" width="140" height="56">
+                    <div class="flex flex-col border-l border-obsidian/15 pl-3 sm:pl-4">
+                        <span class="font-serif text-lg sm:text-2xl tracking-[0.18em] sm:tracking-[0.2em] font-medium text-obsidian leading-none">С-АСА</span>
+                        <span class="text-[8px] sm:text-[9px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-graphite mt-1 sm:mt-1.5">Консалтинг</span>
+                    </div>
+                </a>
+
+                <!-- Меню (десктоп) -->
+                <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
+                    <nav class="flex space-x-8 lg:space-x-10 text-xs uppercase tracking-[0.18em] text-obsidian font-normal">
+                        <a href="#services" class="nav-link">Послуги</a>
+                        <a href="#philosophy" class="nav-link">Підхід</a>
+                        <a href="#contact" class="nav-link">Контакти</a>
+                    </nav>
+
+                    <div class="h-8 w-[1px] bg-obsidian/10"></div>
+
+                    <div class="flex flex-col text-right text-xs tracking-wider text-graphite space-y-1 font-normal">
+                        <a href="tel:+380738003775" class="hover:text-bronzeDark transition">+380 73 800 37 75</a>
+                        <a href="tel:+380678003775" class="hover:text-bronzeDark transition">+380 67 800 37 75</a>
+                    </div>
+                </div>
+
+                <!-- Кнопка мобільного меню (гамбургер) -->
+                <button id="menuBtn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none" aria-label="Мобільне меню" aria-expanded="false">
+                    <span class="w-6 h-[1.5px] bg-obsidian transition-transform duration-300" id="line1"></span>
+                    <span class="w-6 h-[1.5px] bg-obsidian transition-opacity duration-300" id="line2"></span>
+                    <span class="w-6 h-[1.5px] bg-obsidian transition-transform duration-300" id="line3"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Мобільне виїзне меню (Overlay) з атрибутом inert за замовчуванням -->
+    <div id="mobileMenu" inert class="fixed inset-0 z-40 bg-alabaster/[0.98] backdrop-blur-xl flex flex-col justify-center items-center px-6 transform translate-x-full transition-transform duration-500 md:hidden">
+        <nav class="flex flex-col items-center space-y-8 text-sm uppercase tracking-[0.25em] text-obsidian font-normal">
+            <a href="#services" class="mobile-link nav-link">Послуги</a>
+            <a href="#philosophy" class="mobile-link nav-link">Підхід</a>
+            <a href="#contact" class="mobile-link nav-link">Контакти</a>
+        </nav>
+        <div class="mt-12 pt-8 border-t border-subtle w-48 text-center text-xs tracking-wider text-graphite space-y-2 font-light">
+            <a href="tel:+380738003775" class="block hover:text-bronzeDark transition">+380 73 800 37 75</a>
+            <a href="tel:+380678003775" class="block hover:text-bronzeDark transition">+380 67 800 37 75</a>
+        </div>
+    </div>
+
+    <!-- Головний екран (Hero Section) -->
+    <main>
+        <section class="relative min-h-screen flex items-center pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden">
+            <div class="absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0 opacity-35 sm:opacity-60">
+                <svg viewBox="0 0 600 600" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                    <circle cx="300" cy="300" r="280" stroke="#B89B72" stroke-width="0.6" stroke-dasharray="3 6" class="svg-orbit"/>
+                    <circle cx="300" cy="300" r="220" stroke="#18181B" stroke-width="0.4" stroke-opacity="0.2"/>
+                    <circle cx="300" cy="300" r="150" stroke="#B89B72" stroke-width="0.5" stroke-opacity="0.4" class="svg-pulse"/>
+                    <ellipse cx="300" cy="300" rx="270" ry="95" transform="rotate(-28 300 300)" stroke="#18181B" stroke-width="0.5" stroke-opacity="0.25"/>
+                    <ellipse cx="300" cy="300" rx="270" ry="95" transform="rotate(32 300 300)" stroke="#B89B72" stroke-width="0.7" stroke-opacity="0.5"/>
+                    <line x1="20" y1="300" x2="580" y2="300" stroke="#18181B" stroke-width="0.4" stroke-opacity="0.15"/>
+                    <line x1="300" y1="20" x2="300" y2="580" stroke="#18181B" stroke-width="0.4" stroke-opacity="0.15"/>
+                    <circle cx="300" cy="80" r="3" fill="#B89B72"/>
+                    <circle cx="490" cy="200" r="2.5" fill="#18181B"/>
+                    <circle cx="135" cy="400" r="3" fill="#B89B72"/>
+                    <rect x="296" y="296" width="8" height="8" stroke="#B89B72" stroke-width="1"/>
+                </svg>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-3 mb-5 sm:mb-8">
+                        <span class="w-6 sm:w-8 h-[1px] bg-bronze"></span>
+                        <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-bronzeDark font-medium">Системна архітектура бізнесу</span>
+                    </div>
+                    
+                    <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl text-obsidian leading-[1.15] sm:leading-[1.08] mb-6 sm:mb-8 font-normal">
+                        Комплексна автоматизація бізнесу <br class="hidden sm:inline">
+                        <span class="italic font-light text-bronzeDark">на базі 1С / BAS</span>
+                    </h1>
+                    
+                    <p class="text-sm sm:text-xl text-graphite leading-relaxed mb-8 sm:mb-12 max-w-2xl font-light">
+                        Передайте рутину надійним алгоритмам, щоб керувати бізнесом із повною впевненістю у завтрашньому дні.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-6">
+                        <a href="#services" class="group inline-flex items-center justify-center gap-4 sm:gap-5 bg-obsidian text-alabaster px-7 sm:px-9 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] hover:bg-bronzeDark transition-all duration-500 text-center">
+                            <span>Ознайомитись з послугами</span>
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                <path d="M5 12h14M13 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="#contact" class="inline-flex items-center justify-center px-7 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] text-obsidian border border-obsidian/20 hover:border-obsidian transition-colors duration-300 text-center">
+                            Зворотний зв'язок
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-16 sm:mt-24 pt-8 border-t border-subtle grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-2xl">
+                    <div>
+                        <span class="block font-serif text-lg sm:text-2xl text-obsidian">BAS & ІТ</span>
+                        <span class="text-xs text-graphite tracking-wider uppercase mt-1 block">Алгоритмізація процесів</span>
+                    </div>
+                    <div>
+                        <span class="block font-serif text-lg sm:text-2xl text-obsidian">Вся Україна</span>
+                        <span class="text-xs text-graphite tracking-wider uppercase mt-1 block">Дистанційна та очна інтеграція</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секція послуг -->
+        <section id="services" class="py-20 sm:py-28 border-t border-subtle bg-alabaster">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-20 reveal">
+                    <div>
+                        <span class="text-xs uppercase tracking-[0.25em] text-bronzeDark block mb-2 sm:mb-3">Компетенції</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl text-obsidian font-normal">Наші послуги</h2>
+                    </div>
+                    <p class="text-sm text-graphite max-w-md mt-3 md:mt-0 font-light">
+                        Системні технології обліку та ІТ-експертиза для стабільного розвитку вашої компанії.
+                    </p>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    
+                    <div class="group bg-stone/50 border border-subtle p-5 sm:p-12 flex flex-col justify-between transition-colors duration-500 hover:bg-stone reveal">
+                        <div>
+                            <div class="relative h-56 sm:h-80 w-full mb-6 sm:mb-10 overflow-hidden bg-obsidian">
+                                <img id="imgService1" 
+                                     src="bas-service.jpg" 
+                                     alt="Автоматизація бізнес-процесів BAS — графічна візуалізалізація потоків даних" 
+                                     loading="lazy"
+                                     decoding="async"
+                                     width="800"
+                                     height="600"
+                                     class="w-full h-full object-cover img-editorial">
+                                <div class="absolute inset-0 bg-gradient-to-t pointer-events-none"></div>
+                            </div>
+
+                            <h3 class="font-serif text-2xl sm:text-3xl text-obsidian mb-3 sm:mb-4 font-normal">
+                                Автоматизація бізнес-процесів (BAS)
+                            </h3>
+
+                            <blockquote class="text-xs sm:text-lg text-bronzeDark italic border-l border-bronze pl-3 sm:pl-4 py-1 mb-6 sm:mb-8 font-serif">
+                                «Індивідуальна адаптація систем під реальні потреби та масштаб вашого підприємства.»
+                            </blockquote>
+
+                            <ul class="space-y-3 sm:space-y-4 text-xs sm:text-sm text-graphite font-light">
+                                <li class="flex items-start gap-3 sm:gap-4 pb-2.5 sm:pb-3 border-b border-subtle">
+                                    <span class="text-bronze font-serif italic text-base">I.</span>
+                                    <span>Аудит бізнес-процесів та підбір оптимального ПЗ</span>
+                                </li>
+                                <li class="flex items-start gap-3 sm:gap-4 pb-2.5 sm:pb-3 border-b border-subtle">
+                                    <span class="text-bronze font-serif italic text-base">II.</span>
+                                    <span>Професійне налаштування та адаптація облікової системи</span>
+                                </li>
+                                <li class="flex items-start gap-3 sm:gap-4 pb-2.5 sm:pb-3 border-b border-subtle">
+                                    <span class="text-bronze font-serif italic text-base">III.</span>
+                                    <span>Алгоритмізація та оптимізація операційних потоків</span>
+                                </li>
+                                <li class="flex items-start gap-3 sm:gap-4 pb-2.5 sm:pb-3 border-b border-subtle">
+                                    <span class="text-bronze font-serif italic text-base">IV.</span>
+                                    <span>Навчання та супровід вашої команди</span>
+                                </li>
+                                <li class="flex items-start gap-3 sm:gap-4">
+                                    <span class="text-bronze font-serif italic text-base">V.</span>
+                                    <span>Підключення торгового обладнання та мереж</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-subtle flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                            <span class="text-[11px] uppercase tracking-[0.2em] text-graphite">Індивідуальне впровадження</span>
+                            <a href="#contact" class="text-xs uppercase tracking-[0.15em] text-obsidian group-hover:text-bronzeDark font-medium inline-flex items-center gap-2 transition">
+                                <span>Замовити консультацію</span>
+                                <span aria-hidden="true">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Секція методології -->
+        <section id="philosophy" class="py-20 sm:py-24 bg-obsidian text-alabaster relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+                <div class="max-w-2xl mb-12 sm:mb-16 reveal">
+                    <span class="text-xs uppercase tracking-[0.25em] text-bronze block mb-2 sm:mb-3">Методологія</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-normal leading-tight">
+                        Як ми перетворюємо хаос поточних операцій на <span class="italic text-bronze">прозорий алгоритм</span>
+                    </h2>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-white/10 pt-10 sm:pt-12 reveal">
+                    <div class="pr-4">
+                        <span class="font-serif text-bronze text-xl italic block mb-3">Етап 01</span>
+                        <h3 class="text-lg font-normal mb-2">Аудит процесів</h3>
+                        <p class="text-xs text-white/60 leading-relaxed">Глибоке вивчення поточної структури підприємства, виявлення вузьких місць та дублювання операцій.</p>
+                    </div>
+                    <div class="pr-4">
+                        <span class="font-serif text-bronze text-xl italic block mb-3">Етап 02</span>
+                        <h3 class="text-lg font-normal mb-2">Архітектура системи</h3>
+                        <p class="text-xs text-white/60 leading-relaxed">Підбір конфігурації BAS та проєктування логіки документообігу відповідно до специфіки бізнесу.</p>
+                    </div>
+                    <div class="pr-4">
+                        <span class="font-serif text-bronze text-xl italic block mb-3">Етап 03</span>
+                        <h3 class="text-lg font-normal mb-2">Інтеграція та навчання</h3>
+                        <p class="text-xs text-white/60 leading-relaxed">Налаштування програмного середовища, підключення обладнання та підготовка вашої команди.</p>
+                    </div>
+                    <div class="pr-4">
+                        <span class="font-serif text-bronze text-xl italic block mb-3">Етап 04</span>
+                        <h3 class="text-lg font-normal mb-2">Підтримка та супровід</h3>
+                        <p class="text-xs text-white/60 leading-relaxed">Системний технічний супровід, стабільна робота бази даних та подальший розвиток ІТ-інфраструктури.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секція контактів та форми -->
+        <section id="contact" class="py-20 sm:py-28 bg-alabaster">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                    
+                    <div class="lg:col-span-5 reveal">
+                        <span class="text-xs uppercase tracking-[0.25em] text-bronzeDark block mb-2 sm:mb-3">Комунікація</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl text-obsidian mb-4 sm:mb-6 font-normal">Контакти</h2>
+                        
+                        <p class="text-sm text-graphite leading-relaxed mb-8 sm:mb-12 font-light">
+                            Послуги надаються по всій території України, якщо це прямо не обмежено умовами надання конкретної послуги або законодавством.
+                        </p>
+
+                        <div class="space-y-6 sm:space-y-8 border-t border-subtle pt-6 sm:pt-8">
+                            <div class="flex items-start gap-4 sm:gap-5">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 border border-subtle flex items-center justify-center shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-bronzeDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] uppercase tracking-[0.2em] text-graphite block mb-1">Електронна пошта</span>
+                                    <a href="mailto:sasa.consulting.info@gmail.com" class="font-serif text-base sm:text-xl text-obsidian hover:text-bronzeDark transition break-all">
+                                        sasa.consulting.info@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 sm:gap-5">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 border border-subtle flex items-center justify-center shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-bronzeDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] uppercase tracking-[0.2em] text-graphite block mb-1">Телефони для зв'язку</span>
+                                    <div class="flex flex-col space-y-1 font-serif text-lg sm:text-xl text-obsidian">
+                                        <a href="tel:+380738003775" class="hover:text-bronzeDark transition">+380 73 800 37 75</a>
+                                        <a href="tel:+380678003775" class="hover:text-bronzeDark transition">+380 67 800 37 75</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-stone/60 border border-subtle p-5 sm:p-14 reveal">
+                        <h3 class="font-serif text-2xl sm:text-3xl text-obsidian mb-2 font-normal">Зворотний зв'язок</h3>
+                        <p class="text-xs text-graphite mb-6 sm:mb-10 font-light">Залиште ваші контакти, і ми зв'яжемося з вами для обговорення деталей проєкту.</p>
+
+                        <form id="contactForm" action="https://formsubmit.co/ajax/sasa.consulting.info@gmail.com" method="POST" class="space-y-6 sm:space-y-8">
+                            <input type="hidden" name="_subject" value="Нова заявка з сайту s-asa.com.ua">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+                            <div>
+                                <label for="name" class="block text-[11px] uppercase tracking-[0.2em] text-graphite mb-2">Ваше Ім'я</label>
+                                <input type="text" id="name" name="Ім'я" autocomplete="name" required
+                                       class="w-full bg-transparent border-b border-obsidian/20 py-3 text-base text-obsidian focus:border-bronzeDark outline-none transition-colors font-light"
+                                       placeholder="Вкажіть своє ім'я">
+                            </div>
+
+                            <div>
+                                <label for="contact_info" class="block text-[11px] uppercase tracking-[0.2em] text-graphite mb-2">Ваш Email</label>
+                                <input type="email" id="contact_info" name="Email" autocomplete="email" required
+                                       class="w-full bg-transparent border-b border-obsidian/20 py-3 text-base text-obsidian focus:border-bronzeDark outline-none transition-colors font-light"
+                                       placeholder="Вкажіть свій email для зворотного зв'язку">
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-[11px] uppercase tracking-[0.2em] text-graphite mb-2">Ваше повідомлення</label>
+                                <textarea id="message" name="Повідомлення" rows="3" required
+                                          class="w-full bg-transparent border-b border-obsidian/20 py-3 text-base text-obsidian focus:border-bronzeDark outline-none transition-colors font-light resize-none"
+                                          placeholder="Опишіть коротко вашу задачу або запитання..."></textarea>
+                            </div>
+
+                            <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <button type="submit" id="submitBtn"
+                                        class="w-full sm:w-auto bg-obsidian text-alabaster px-10 sm:px-12 py-4 text-xs uppercase tracking-[0.2em] hover:bg-bronzeDark transition-colors duration-500 disabled:opacity-50 text-center">
+                                    Надіслати запит
+                                </button>
+                                <span id="formStatus" role="status" aria-live="polite" class="text-xs font-normal tracking-wide hidden"></span>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Підвал -->
+    <footer class="bg-alabaster border-t border-subtle py-8 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-xs text-graphite">
+            <!-- Об'єднане посилання логотипа у футері -->
+            <a href="#" class="flex items-center gap-3 logo-container" aria-label="С-АСА КОНСАЛТИНГ — На головну">
+                <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend" width="100" height="40">
+                <span class="font-serif text-sm sm:text-lg tracking-[0.18em] sm:tracking-[0.2em] text-obsidian">С-АСА КОНСАЛТИНГ</span>
+            </a>
+            <p class="font-light tracking-wider text-center sm:text-right">&copy; <span id="current-year">2026</span> С-АСА КОНСАЛТИНГ. Всі права захищені.</p>
+        </div>
+    </footer>
+
+    <!-- Спливаюча підказка встановлення додатку для iOS Safari -->
+    <div id="iosPwaPrompt" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-24 sm:w-96 z-[60] bg-obsidian text-alabaster border border-bronze/40 p-4 sm:p-5 shadow-2xl opacity-0 translate-y-8 pointer-events-none transition-all duration-500">
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3.5">
+                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain bg-alabaster p-1 shrink-0 rounded-sm" width="44" height="44">
+                <div>
+                    <h4 class="font-serif text-base sm:text-lg text-alabaster leading-tight">Встановити додаток С-АСА</h4>
+                    <p class="text-[11px] text-white/70 font-light mt-0.5 leading-snug">Швидкий доступ до консалтингу прямо з екрана вашого iPhone</p>
+                </div>
+            </div>
+            <button id="closePwaPrompt" aria-label="Закрити підказку" class="text-white/50 hover:text-bronze transition p-1 -mt-1 -mr-1">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="mt-3.5 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[11px] text-white/80 font-light">
+            <span class="flex items-center gap-1.5">
+                1. Натисніть <strong class="text-bronze font-normal">«Поділитися»</strong>
+                <svg class="w-4 h-4 text-bronze inline-block shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+            </span>
+            <span>2. Оберіть <strong class="text-bronze font-normal">«На початковий екран» ➕</strong></span>
+        </div>
+    </div>
+
+    <!-- Спливаюча підказка встановлення додатку для Android Chrome -->
+    <div id="androidPwaPrompt" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-24 sm:w-96 z-[60] bg-obsidian text-alabaster border border-bronze/40 p-4 sm:p-5 shadow-2xl opacity-0 translate-y-8 pointer-events-none transition-all duration-500">
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3.5">
+                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain bg-alabaster p-1 shrink-0 rounded-sm" width="44" height="44">
+                <div>
+                    <h4 class="font-serif text-base sm:text-lg text-alabaster leading-tight">Встановити додаток С-АСА</h4>
+                    <p class="text-[11px] text-white/70 font-light mt-0.5 leading-snug">Швидкий доступ до консалтингу з екрана вашого телефону</p>
+                </div>
+            </div>
+            <button id="closeAndroidPrompt" aria-label="Закрити підказку" class="text-white/50 hover:text-bronze transition p-1 -mt-1 -mr-1">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+            <span class="text-[11px] text-white/80 font-light">Додати на головний екран пристрою</span>
+            <button id="installAndroidApp" class="bg-bronze text-obsidian px-4 py-2 text-[11px] uppercase tracking-[0.15em] font-medium hover:bg-bronzeDark transition-colors cursor-pointer">
+                Встановити
+            </button>
+        </div>
+    </div>
+
+    <!-- Кнопка скролу вгору -->
+    <button id="scrollToTopBtn" 
+            aria-label="Прокрутити нагору"
+            class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-11 h-11 sm:w-12 sm:h-12 bg-obsidian text-alabaster border border-bronze/40 flex items-center justify-center shadow-xl opacity-0 translate-y-4 pointer-events-none transition-all duration-500 hover:bg-bronzeDark focus:outline-none cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- СКРИПТИ -->
+    <script>
+        // 1. Реєстрація Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker успішно зареєстровано:', reg.scope))
+                    .catch(err => console.log('Помилка реєстрації Service Worker:', err));
+            });
+        }
+
+        // 2. Прелоадер: адаптивний таймінг (швидкий повторний показ у межах сесії) + запобіжник
+        const preloader = document.getElementById('pagePreloader');
+
+        if (preloader) {
+            let isPreloaderHidden = false;
+            let isRepeatVisit = false;
+            try {
+                isRepeatVisit = Boolean(sessionStorage.getItem('sasa_visited'));
+            } catch (e) {}
+
+            const delay = isRepeatVisit ? 300 : 900;
+
+            const hidePreloader = () => {
+                if (isPreloaderHidden) return;
+                isPreloaderHidden = true;
+                try {
+                    sessionStorage.setItem('sasa_visited', 'true');
+                } catch (e) {}
+                setTimeout(() => {
+                    preloader.classList.add('loaded');
+                }, delay);
+            };
+
+            if (document.readyState !== 'loading') {
+                hidePreloader();
+            } else {
+                document.addEventListener('DOMContentLoaded', hidePreloader);
+            }
+            // Запобіжник: примусово приховати через 2.5 с, навіть якщо зовнішні ресурси затримуються
+            setTimeout(hidePreloader, 2500);
+        }
+
+        // Актуалізація року у футері
+        const yearEl = document.getElementById('current-year');
+        if (yearEl) {
+            yearEl.textContent = new Date().getFullYear();
+        }
+
+        // 3. Логіка мобільного меню (гамбургер) із керуванням атрибутом inert та захистом при ресайзі
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+
+        function closeMenuState() {
+            if (!mobileMenu || !menuBtn) return;
+            mobileMenu.classList.add('translate-x-full');
+            mobileMenu.setAttribute('inert', '');
+            document.body.style.overflow = '';
+            menuBtn.setAttribute('aria-expanded', 'false');
+            if (line1) line1.style.transform = 'none';
+            if (line2) line2.style.opacity = '1';
+            if (line3) line3.style.transform = 'none';
+        }
+
+        function toggleMenu() {
+            if (!mobileMenu || !menuBtn) return;
+            const isClosed = mobileMenu.classList.toggle('translate-x-full');
+            document.body.style.overflow = isClosed ? '' : 'hidden';
+            menuBtn.setAttribute('aria-expanded', String(!isClosed));
+
+            if (!isClosed) {
+                mobileMenu.removeAttribute('inert');
+                if (line1) line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+                if (line2) line2.style.opacity = '0';
+                if (line3) line3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+            } else {
+                mobileMenu.setAttribute('inert', '');
+                if (line1) line1.style.transform = 'none';
+                if (line2) line2.style.opacity = '1';
+                if (line3) line3.style.transform = 'none';
+            }
+        }
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', closeMenuState);
+            });
+
+            // Скидання стану меню при повороті екрана / розширенні вікна до десктопного
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768 && !mobileMenu.classList.contains('translate-x-full')) {
+                    closeMenuState();
+                }
+            });
+
+            // Закриття мобільного меню клавішею Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
+                    closeMenuState();
+                }
+            });
+        }
+
+        // 4. Анімація появи секцій при скролі
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 5. Надійне відстеження появи кнопки скролу нагору
+        const topSentinel = document.getElementById('topSentinel');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        if (topSentinel && scrollToTopBtn) {
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        scrollToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                        scrollToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    } else {
+                        scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                        scrollToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                    }
+                });
+            }, { threshold: 0 });
+
+            scrollObserver.observe(topSentinel);
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // 6. Логіка показу підказки встановлення PWA для iOS Safari (Суворо тільки для мобільних Apple)
+        const iosPwaPrompt = document.getElementById('iosPwaPrompt');
+        const closePwaPrompt = document.getElementById('closePwaPrompt');
+
+        if (iosPwaPrompt && closePwaPrompt) {
+            const ua = window.navigator.userAgent;
+            const platform = window.navigator.platform;
+
+            const isIos = /iphone|ipad|ipod/i.test(ua) || 
+                          (platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            
+            const isDesktop = /windows|macintosh|linux/i.test(ua) && navigator.maxTouchPoints <= 1;
+
+            const isSafari = /Safari/i.test(ua) && 
+                             !/CriOS|FxiOS|OPiOS|Telegram|Instagram|FBAN|FBAV|Viber/i.test(ua);
+            
+            const isInStandaloneMode = ('standalone' in window.navigator && window.navigator.standalone) || 
+                                       window.matchMedia('(display-mode: standalone)').matches;
+            
+            let isPromptDismissed = false;
+            try {
+                isPromptDismissed = localStorage.getItem('sasa_ios_pwa_dismissed');
+            } catch (e) {}
+
+            if (isIos && !isDesktop && isSafari && !isInStandaloneMode && !isPromptDismissed) {
+                setTimeout(() => {
+                    iosPwaPrompt.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                    iosPwaPrompt.classList.add('opacity-100', 'translate-y-0');
+                }, 3500);
+            }
+
+            closePwaPrompt.addEventListener('click', () => {
+                iosPwaPrompt.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                iosPwaPrompt.classList.remove('opacity-100', 'translate-y-0');
+                try {
+                    localStorage.setItem('sasa_ios_pwa_dismissed', 'true');
+                } catch (e) {}
+            });
+        }
+
+        // 7. Налаштування події beforeinstallprompt для Android (Суворо тільки для мобільних Android)
+        let deferredPrompt;
+        const androidPwaPrompt = document.getElementById('androidPwaPrompt');
+        const installAndroidApp = document.getElementById('installAndroidApp');
+        const closeAndroidPrompt = document.getElementById('closeAndroidPrompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            const isAndroidMobile = /android/i.test(window.navigator.userAgent);
+            
+            if (!isAndroidMobile) {
+                return; // Повна заборона показу на десктопних браузерах (Windows/Mac/Linux)
+            }
+
+            e.preventDefault();
+            deferredPrompt = e;
+
+            let isAndroidDismissed = false;
+            try {
+                isAndroidDismissed = localStorage.getItem('sasa_android_pwa_dismissed');
+            } catch (err) {}
+
+            if (androidPwaPrompt && !isAndroidDismissed) {
+                setTimeout(() => {
+                    androidPwaPrompt.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                    androidPwaPrompt.classList.add('opacity-100', 'translate-y-0');
+                }, 3500);
+            }
+        });
+
+        if (installAndroidApp) {
+            installAndroidApp.addEventListener('click', async () => {
+                if (!deferredPrompt) return;
+                
+                deferredPrompt.prompt();
+                
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`Вибір встановлення користувача: ${outcome}`);
+                
+                deferredPrompt = null;
+                
+                if (androidPwaPrompt) {
+                    androidPwaPrompt.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                    androidPwaPrompt.classList.remove('opacity-100', 'translate-y-0');
+                }
+            });
+        }
+
+        if (closeAndroidPrompt && androidPwaPrompt) {
+            closeAndroidPrompt.addEventListener('click', () => {
+                androidPwaPrompt.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                androidPwaPrompt.classList.remove('opacity-100', 'translate-y-0');
+                try {
+                    localStorage.setItem('sasa_android_pwa_dismissed', 'true');
+                } catch (err) {}
+            });
+        }
+
+        // 8. Обробка відправки контактної форми з розширеною перевіркою JSON-відповіді
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formStatus = document.getElementById('formStatus');
+        let statusTimeout;
+
+        if (contactForm && submitBtn && formStatus) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                if (statusTimeout) clearTimeout(statusTimeout);
+
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Відправка...';
+                formStatus.classList.add('hidden');
+                formStatus.classList.remove('block');
+
+                const formData = new FormData(contactForm);
+
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    const result = await response.json().catch(() => ({}));
+
+                    if (response.ok && result.success !== 'false' && result.success !== false) {
+                        contactForm.reset();
+                        formStatus.textContent = '✓ Дякуємо! Запит успішно надіслано.';
+                        formStatus.className = 'text-xs font-normal tracking-wide text-emerald-700 block';
+                        
+                        statusTimeout = setTimeout(() => {
+                            formStatus.classList.add('hidden');
+                            formStatus.classList.remove('block');
+                        }, 6000);
+                    } else {
+                        throw new Error(result.message || 'Помилка сервера');
+                    }
+                } catch (error) {
+                    formStatus.textContent = '✕ Помилка відправки. Спробуйте пізніше.';
+                    formStatus.className = 'text-xs font-normal tracking-wide text-red-700 block';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
