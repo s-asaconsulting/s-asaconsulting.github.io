@@ -54,10 +54,10 @@
     }
     </script>
 
-    <!-- Преміальні шрифти -->
+    <!-- Преміальні шрифти з повною підтримкою української кирилиці -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Скомпільовані стилі (замість важкого скрипту Tailwind CDN) -->
     <style>
@@ -74,7 +74,7 @@
             text-size-adjust: 100%;
             -moz-tab-size: 4;
             tab-size: 4;
-            font-family: "Plus Jakarta Sans", sans-serif;
+            font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             scroll-behavior: smooth;
             -webkit-tap-highlight-color: transparent;
             height: 100%;
@@ -88,6 +88,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
+            overflow-x: clip;
         }
         h1, h2, h3, h4, p, blockquote, ul { margin: 0; padding: 0; }
         ul { list-style: none; }
@@ -108,8 +109,8 @@
 
         ::selection { background-color: #B89B72; color: #ffffff; }
 
-        /* Захист від закривання секцій фіксованою шапкою при плавному скролі */
-        section { scroll-margin-top: 90px; }
+        /* Захист від закривання секцій фіксованою шапкою при плавному скролі з урахуванням Safe Area */
+        section { scroll-margin-top: calc(90px + env(safe-area-inset-top, 0px)); }
 
         /* Безпечна зона для iPhone (виріз / Dynamic Island / статус-бар) */
         header.fixed {
@@ -126,9 +127,9 @@
             justify-content: center;
             background-color: #FAF9F6;
             color: #18181B;
-            transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                        visibility 1.6s ease, 
-                        background-color 1.6s ease;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        visibility 0.8s ease, 
+                        background-color 0.8s ease;
         }
         .preloader-logo-wrap {
             width: 96px;
@@ -141,7 +142,7 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: translateZ(0);
-            animation: logoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: logoIntro 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes logoIntro {
             0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
@@ -153,7 +154,7 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: translateZ(0);
-            animation: logoGlow 3.2s ease-in-out infinite 1.4s;
+            animation: logoGlow 3.2s ease-in-out infinite 0.8s;
         }
         @keyframes logoGlow {
             0%, 100% { transform: scale(1) translateZ(0); }
@@ -162,7 +163,7 @@
         .preloader-title {
             opacity: 0;
             letter-spacing: 0.35em;
-            animation: cinematicTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            animation: cinematicTitle 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
         }
         @keyframes cinematicTitle {
             0% { opacity: 0; transform: translateY(16px) translateZ(0); }
@@ -184,16 +185,16 @@
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
-            animation: fillProgress 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            animation: fillProgress 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
         }
         @keyframes fillProgress {
             0% { width: 0%; opacity: 0.5; }
             100% { width: 100%; opacity: 1; }
         }
         .preloader-content {
-            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        filter 1.4s ease;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                        filter 0.7s ease;
         }
         #pagePreloader.loaded {
             opacity: 0;
@@ -346,6 +347,7 @@
         .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
         .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
         .space-y-8 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
+        .space-x-8 > :not([hidden]) ~ :not([hidden]) { margin-left: 2rem; }
 
         .overflow-hidden { overflow: hidden; }
         .break-all { word-break: break-all; }
@@ -405,8 +407,8 @@
 
         .text-center { text-align: center; }
         .text-right { text-align: right; }
-        .font-sans { font-family: "Plus Jakarta Sans", sans-serif; }
-        .font-serif { font-family: "Cormorant Garamond", serif; }
+        .font-sans { font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .font-serif { font-family: "Cormorant Garamond", Georgia, serif; }
 
         .text-\[8px\] { font-size: 8px; }
         .text-\[11px\] { font-size: 11px; }
@@ -571,7 +573,6 @@
             .md\:hidden { display: none; }
             .md\:flex-row { flex-direction: row; }
             .md\:items-end { align-items: flex-end; }
-            .space-x-8 > :not([hidden]) ~ :not([hidden]) { margin-left: 2rem; }
         }
 
         @media (min-width: 1024px) {
@@ -588,7 +589,22 @@
             .lg\:px-12 { padding-left: 3rem; padding-right: 3rem; }
             .lg\:text-6xl { font-size: 3.75rem; line-height: 1; }
         }
+
+        /* 5. ПОВАГА ДО СИСТЕМНИХ НАЛАШТУВАНЬ ЗМЕНШЕННЯ РУХУ (ACCESSIBILITY) */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .svg-orbit, .svg-pulse, .preloader-logo { animation: none !important; }
+            .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+        }
     </style>
+
+    <!-- Захист відображення контенту при вимкненому JavaScript -->
+    <noscript>
+        <style>
+            #pagePreloader { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        </style>
+    </noscript>
 </head>
 <body class="font-sans font-light">
 
@@ -599,7 +615,7 @@
     <div id="pagePreloader">
         <div class="preloader-content flex flex-col items-center gap-5">
             <div class="preloader-logo-wrap">
-                <img src="LOGO.png" alt="С-АСА Логотип" class="max-h-full max-w-full object-contain preloader-logo" width="120" height="120">
+                <img src="LOGO.png" alt="С-АСА Логотип" fetchpriority="high" class="max-h-full max-w-full object-contain preloader-logo" width="120" height="120">
             </div>
             <span class="preloader-title font-serif text-sm uppercase">С-АСА КОНСАЛТИНГ</span>
             <div class="preloader-line-track">
@@ -613,17 +629,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-20 sm:h-24">
                 
-                <!-- Логотип -->
-                <div class="flex items-center gap-3 sm:gap-4 logo-container">
-                    <a href="#" class="flex items-center">
-                        <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" class="h-10 sm:h-14 w-auto object-contain logo-blend" width="140" height="56">
-                    </a>
-
-                    <a href="#" class="flex flex-col border-l border-obsidian/15 pl-3 sm:pl-4">
+                <!-- Об'єднане посилання логотипа для кращої доступності (Accessibility) -->
+                <a href="#" class="flex items-center gap-3 sm:gap-4 logo-container" aria-label="С-АСА КОНСАЛТИНГ — На головну">
+                    <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" fetchpriority="high" class="h-10 sm:h-14 w-auto object-contain logo-blend" width="140" height="56">
+                    <div class="flex flex-col border-l border-obsidian/15 pl-3 sm:pl-4">
                         <span class="font-serif text-lg sm:text-2xl tracking-[0.18em] sm:tracking-[0.2em] font-medium text-obsidian leading-none">С-АСА</span>
                         <span class="text-[8px] sm:text-[9px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-graphite mt-1 sm:mt-1.5">Консалтинг</span>
-                    </a>
-                </div>
+                    </div>
+                </a>
 
                 <!-- Меню (десктоп) -->
                 <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
@@ -651,8 +664,8 @@
         </div>
     </header>
 
-    <!-- Мобільне виїзне меню (Overlay) -->
-    <div id="mobileMenu" class="fixed inset-0 z-40 bg-alabaster/[0.98] backdrop-blur-xl flex flex-col justify-center items-center px-6 transform translate-x-full transition-transform duration-500 md:hidden">
+    <!-- Мобільне виїзне меню (Overlay) з атрибутом inert за замовчуванням -->
+    <div id="mobileMenu" inert class="fixed inset-0 z-40 bg-alabaster/[0.98] backdrop-blur-xl flex flex-col justify-center items-center px-6 transform translate-x-full transition-transform duration-500 md:hidden">
         <nav class="flex flex-col items-center space-y-8 text-sm uppercase tracking-[0.25em] text-obsidian font-normal">
             <a href="#services" class="mobile-link nav-link">Послуги</a>
             <a href="#philosophy" class="mobile-link nav-link">Підхід</a>
@@ -707,7 +720,7 @@
                             </svg>
                         </a>
                         <a href="#contact" class="inline-flex items-center justify-center px-7 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] text-obsidian border border-obsidian/20 hover:border-obsidian transition-colors duration-300 text-center">
-                            Зворотній зв'язок
+                            Зворотний зв'язок
                         </a>
                     </div>
                 </div>
@@ -746,8 +759,9 @@
                             <div class="relative h-56 sm:h-80 w-full mb-6 sm:mb-10 overflow-hidden bg-obsidian">
                                 <img id="imgService1" 
                                      src="bas-service.jpg" 
-                                     alt="Автоматизація бізнес-процесів BAS — графічна візуалізація потоків даних" 
+                                     alt="Автоматизація бізнес-процесів BAS — графічна візуалізалізація потоків даних" 
                                      loading="lazy"
+                                     decoding="async"
                                      width="800"
                                      height="600"
                                      class="w-full h-full object-cover img-editorial">
@@ -880,7 +894,7 @@
                     </div>
 
                     <div class="lg:col-span-7 bg-stone/60 border border-subtle p-5 sm:p-14 reveal">
-                        <h3 class="font-serif text-2xl sm:text-3xl text-obsidian mb-2 font-normal">Зворотній зв'язок</h3>
+                        <h3 class="font-serif text-2xl sm:text-3xl text-obsidian mb-2 font-normal">Зворотний зв'язок</h3>
                         <p class="text-xs text-graphite mb-6 sm:mb-10 font-light">Залиште ваші контакти, і ми зв'яжемося з вами для обговорення деталей проєкту.</p>
 
                         <form id="contactForm" action="https://formsubmit.co/ajax/sasa.consulting.info@gmail.com" method="POST" class="space-y-6 sm:space-y-8">
@@ -928,12 +942,11 @@
     <!-- Підвал -->
     <footer class="bg-alabaster border-t border-subtle py-8 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-xs text-graphite">
-            <div class="flex items-center gap-3 logo-container">
-                <a href="#" class="flex items-center">
-                    <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend" width="100" height="40">
-                </a>
-                <a href="#" class="font-serif text-sm sm:text-lg tracking-[0.18em] sm:tracking-[0.2em] text-obsidian">С-АСА КОНСАЛТИНГ</a>
-            </div>
+            <!-- Об'єднане посилання логотипа у футері -->
+            <a href="#" class="flex items-center gap-3 logo-container" aria-label="С-АСА КОНСАЛТИНГ — На головну">
+                <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend" width="100" height="40">
+                <span class="font-serif text-sm sm:text-lg tracking-[0.18em] sm:tracking-[0.2em] text-obsidian">С-АСА КОНСАЛТИНГ</span>
+            </a>
             <p class="font-light tracking-wider text-center sm:text-right">&copy; <span id="current-year">2026</span> С-АСА КОНСАЛТИНГ. Всі права захищені.</p>
         </div>
     </footer>
@@ -1013,17 +1026,27 @@
             });
         }
 
-        // 2. Прелоадер: швидкий старт по готовності DOM + запобіжник від зависання мережі
+        // 2. Прелоадер: адаптивний таймінг (швидкий повторний показ у межах сесії) + запобіжник
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
             let isPreloaderHidden = false;
+            let isRepeatVisit = false;
+            try {
+                isRepeatVisit = Boolean(sessionStorage.getItem('sasa_visited'));
+            } catch (e) {}
+
+            const delay = isRepeatVisit ? 300 : 900;
+
             const hidePreloader = () => {
                 if (isPreloaderHidden) return;
                 isPreloaderHidden = true;
+                try {
+                    sessionStorage.setItem('sasa_visited', 'true');
+                } catch (e) {}
                 setTimeout(() => {
                     preloader.classList.add('loaded');
-                }, 1400);
+                }, delay);
             };
 
             if (document.readyState !== 'loading') {
@@ -1031,8 +1054,8 @@
             } else {
                 document.addEventListener('DOMContentLoaded', hidePreloader);
             }
-            // Запобіжник: примусово приховати через 3.5 с, навіть якщо зовнішні ресурси затримуються
-            setTimeout(hidePreloader, 3500);
+            // Запобіжник: примусово приховати через 2.5 с, навіть якщо зовнішні ресурси затримуються
+            setTimeout(hidePreloader, 2500);
         }
 
         // Актуалізація року у футері
@@ -1041,7 +1064,7 @@
             yearEl.textContent = new Date().getFullYear();
         }
 
-        // 3. Логіка мобільного меню (гамбургер) із захистом від блокування скролу при ресайзі
+        // 3. Логіка мобільного меню (гамбургер) із керуванням атрибутом inert та захистом при ресайзі
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -1052,6 +1075,7 @@
         function closeMenuState() {
             if (!mobileMenu || !menuBtn) return;
             mobileMenu.classList.add('translate-x-full');
+            mobileMenu.setAttribute('inert', '');
             document.body.style.overflow = '';
             menuBtn.setAttribute('aria-expanded', 'false');
             if (line1) line1.style.transform = 'none';
@@ -1066,10 +1090,12 @@
             menuBtn.setAttribute('aria-expanded', String(!isClosed));
 
             if (!isClosed) {
+                mobileMenu.removeAttribute('inert');
                 if (line1) line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
                 if (line2) line2.style.opacity = '0';
                 if (line3) line3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
             } else {
+                mobileMenu.setAttribute('inert', '');
                 if (line1) line1.style.transform = 'none';
                 if (line2) line2.style.opacity = '1';
                 if (line3) line3.style.transform = 'none';
@@ -1232,19 +1258,23 @@
             });
         }
 
-        // 8. Обробка відправки контактної форми
+        // 8. Обробка відправки контактної форми з розширеною перевіркою JSON-відповіді
         const contactForm = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
         const formStatus = document.getElementById('formStatus');
+        let statusTimeout;
 
         if (contactForm && submitBtn && formStatus) {
             contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
+                if (statusTimeout) clearTimeout(statusTimeout);
+
                 const originalBtnText = submitBtn.textContent;
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Відправка...';
                 formStatus.classList.add('hidden');
+                formStatus.classList.remove('block');
 
                 const formData = new FormData(contactForm);
 
@@ -1257,12 +1287,19 @@
                         }
                     });
 
-                    if (response.ok) {
+                    const result = await response.json().catch(() => ({}));
+
+                    if (response.ok && result.success !== 'false' && result.success !== false) {
                         contactForm.reset();
                         formStatus.textContent = '✓ Дякуємо! Запит успішно надіслано.';
                         formStatus.className = 'text-xs font-normal tracking-wide text-emerald-700 block';
+                        
+                        statusTimeout = setTimeout(() => {
+                            formStatus.classList.add('hidden');
+                            formStatus.classList.remove('block');
+                        }, 6000);
                     } else {
-                        throw new Error('Помилка сервера');
+                        throw new Error(result.message || 'Помилка сервера');
                     }
                 } catch (error) {
                     formStatus.textContent = '✕ Помилка відправки. Спробуйте пізніше.';
