@@ -19,9 +19,8 @@
     <meta name="application-name" content="С-АСА">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#18181B" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FAF9F6">
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- Open Graph / Соцмережі -->
@@ -92,10 +91,23 @@
             text-size-adjust: 100%;
             -webkit-tap-highlight-color: transparent;
         }
-        body {
+        
+        /* Запобігаємо появі скролу та мікрозсувів під час завантаження */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             background-color: #FAF9F6;
-            color: #18181B;
+        }
+
+        body.app-loaded {
             overflow-x: hidden;
+            overflow-y: auto;
+            background-color: #FAF9F6;
+        }
+
+        body {
+            color: #18181B;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -111,7 +123,7 @@
         }
 
         /* =====================================================================
-           УНІВЕРСАЛЬНИЙ ПРЕЛОАДЕР (ДЛЯ БРАУЗЕРІВ ТА ДОДАТКІВ)
+            УНІВЕРСАЛЬНИЙ ПРЕЛОАДЕР
         ====================================================================== */
         #pagePreloader {
             position: fixed;
@@ -120,10 +132,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        /* --- 1. СВІТЛА ТЕМА ДЛЯ БРАУЗЕРІВ (Адаптована у фірмових кольорах) --- */
-        #pagePreloader.theme-light {
             background-color: #FAF9F6;
             color: #18181B;
             transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -131,32 +139,48 @@
                         background-color 1.6s ease;
         }
 
-        #pagePreloader.theme-light .preloader-logo-wrap {
-            animation: lightLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .preloader-logo-wrap {
+            width: 96px;
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center center;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            animation: logoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        @keyframes lightLogoIntro {
-            0% { opacity: 0; transform: scale(0.82) translateY(18px); filter: brightness(0.9); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1); }
+        @keyframes logoIntro {
+            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
+            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
         }
 
-        #pagePreloader.theme-light .preloader-logo {
-            animation: lightLogoGlow 3.2s ease-in-out infinite 1.4s;
+        .preloader-logo {
+            transform-origin: center center;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            animation: logoGlow 3.2s ease-in-out infinite 1.4s;
         }
-        @keyframes lightLogoGlow {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(184, 155, 114, 0.15)); }
-            50% { transform: scale(1.045); filter: drop-shadow(0 4px 18px rgba(184, 155, 114, 0.3)); }
+        @keyframes logoGlow {
+            0%, 100% { transform: scale(1) translateZ(0); }
+            50% { transform: scale(1.045) translateZ(0); }
         }
 
-        #pagePreloader.theme-light .preloader-title {
+        .preloader-title {
             opacity: 0;
-            animation: cinematicLightTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            letter-spacing: 0.35em;
+            animation: cinematicTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
         }
-        @keyframes cinematicLightTitle {
-            0% { opacity: 0; transform: translateY(16px); letter-spacing: 0.12em; }
-            100% { opacity: 0.9; transform: translateY(0); letter-spacing: 0.35em; }
+        @keyframes cinematicTitle {
+            0% { opacity: 0; transform: translateY(16px) translateZ(0); }
+            100% { opacity: 0.95; transform: translateY(0) translateZ(0); }
         }
 
-        #pagePreloader.theme-light .preloader-line-track {
+        .preloader-line-track {
             width: 150px;
             height: 1.5px;
             background-color: rgba(24, 24, 27, 0.08);
@@ -166,108 +190,34 @@
             border-radius: 2px;
         }
 
-        #pagePreloader.theme-light .preloader-line-fill {
+        .preloader-line-fill {
             position: absolute;
             top: 0;
             left: 0;
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
-            animation: fillProgressLight 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            animation: fillProgress 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
-        @keyframes fillProgressLight {
+        @keyframes fillProgress {
             0% { width: 0%; opacity: 0.5; }
             100% { width: 100%; opacity: 1; }
         }
 
-        #pagePreloader.theme-light .preloader-content {
-            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #pagePreloader.theme-light.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #pagePreloader.theme-light.loaded .preloader-content {
-            transform: scale(1.05) translateY(-20px);
-            opacity: 0;
-        }
-
-        /* --- 2. ТЕМНА ТЕМА ДЛЯ МОБІЛЬНИХ ДОДАТКІВ APPLE ТА ANDROID --- */
-        #pagePreloader.theme-dark {
-            background-color: #18181B;
-            color: #FAF9F6;
-            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        visibility 1.8s ease, 
-                        background-color 1.8s ease, 
-                        backdrop-filter 1.8s ease,
-                        -webkit-backdrop-filter 1.8s ease;
-        }
-
-        #pagePreloader.theme-dark .preloader-logo-wrap {
-            animation: appLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes appLogoIntro {
-            0% { opacity: 0; transform: scale(0.82) translateY(18px); filter: brightness(0.7); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1); }
-        }
-
-        #pagePreloader.theme-dark .preloader-logo {
-            animation: appLogoGlow 3.2s ease-in-out infinite 1.4s;
-        }
-        @keyframes appLogoGlow {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(184, 155, 114, 0.15)); }
-            50% { transform: scale(1.045); filter: drop-shadow(0 0 24px rgba(184, 155, 114, 0.4)); }
-        }
-
-        #pagePreloader.theme-dark .preloader-title {
-            opacity: 0;
-            animation: cinematicAppTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
-        }
-        @keyframes cinematicAppTitle {
-            0% { opacity: 0; transform: translateY(16px); letter-spacing: 0.12em; }
-            100% { opacity: 0.95; transform: translateY(0); letter-spacing: 0.35em; }
-        }
-
-        #pagePreloader.theme-dark .preloader-line-track {
-            width: 150px;
-            height: 1.5px;
-            background-color: rgba(250, 249, 246, 0.12);
-            overflow: hidden;
-            position: relative;
-            margin-top: 6px;
-            border-radius: 2px;
-        }
-        #pagePreloader.theme-dark .preloader-line-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, transparent, #B89B72, #FAF9F6, #B89B72);
-            animation: fillProgressApp 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-        }
-        @keyframes fillProgressApp {
-            0% { width: 0%; opacity: 0.5; }
-            100% { width: 100%; opacity: 1; }
-        }
-
-        #pagePreloader.theme-dark .preloader-content {
+        .preloader-content {
             transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
                         opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
                         filter 1.4s ease;
         }
-        #pagePreloader.theme-dark.loaded {
+
+        #pagePreloader.loaded {
             opacity: 0;
             visibility: hidden;
-            background-color: rgba(24, 24, 27, 0.15);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
         }
-        #pagePreloader.theme-dark.loaded .preloader-content {
-            transform: scale(1.08) translateY(-24px);
+
+        #pagePreloader.loaded .preloader-content {
+            transform: scale(1.05) translateY(-20px);
             opacity: 0;
-            filter: blur(8px);
         }
 
         .border-subtle {
@@ -337,10 +287,10 @@
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
     <!-- Універсальний прелоадер -->
-    <div id="pagePreloader" style="display: none;">
+    <div id="pagePreloader">
         <div class="preloader-content flex flex-col items-center gap-5">
             <div class="preloader-logo-wrap">
-                <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo">
+                <img src="LOGO.png" alt="С-АСА Логотип" class="max-h-full max-w-full object-contain preloader-logo" width="120" height="120">
             </div>
             <span class="preloader-title font-serif text-sm uppercase">С-АСА КОНСАЛТИНГ</span>
             <div class="preloader-line-track">
@@ -357,7 +307,7 @@
                 <!-- Логотип -->
                 <div class="flex items-center gap-3 sm:gap-4 logo-container">
                     <a href="#" class="flex items-center">
-                        <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" class="h-10 sm:h-14 w-auto object-contain logo-blend">
+                        <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" class="h-10 sm:h-14 w-auto object-contain logo-blend" width="140" height="56">
                     </a>
 
                     <a href="#" class="flex flex-col border-l border-obsidian/15 pl-3 sm:pl-4">
@@ -489,6 +439,8 @@
                                      src="bas-service.jpg" 
                                      alt="Автоматизація бізнес-процесів BAS — графічна візуалізація потоків даних" 
                                      loading="lazy"
+                                     width="800"
+                                     height="600"
                                      class="w-full h-full object-cover img-editorial">
                                 <div class="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent pointer-events-none"></div>
                             </div>
@@ -543,7 +495,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
                 <div class="max-w-2xl mb-12 sm:mb-16 reveal">
                     <span class="text-xs uppercase tracking-[0.25em] text-bronze block mb-2 sm:mb-3">Методологія</span>
-                    <h2 class="font-serif text-2.5xl sm:text-5xl font-normal leading-tight">
+                    <h2 class="font-serif text-3xl sm:text-5xl font-normal leading-tight">
                         Як ми перетворюємо хаос поточних операцій на <span class="italic text-bronze">прозорий алгоритм</span>
                     </h2>
                 </div>
@@ -669,31 +621,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-xs text-graphite">
             <div class="flex items-center gap-3 logo-container">
                 <a href="#" class="flex items-center">
-                    <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend">
+                    <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend" width="100" height="40">
                 </a>
                 <a href="#" class="font-serif text-sm sm:text-lg tracking-[0.18em] sm:tracking-[0.2em] text-obsidian">С-АСА КОНСАЛТИНГ</a>
             </div>
             <p class="font-light tracking-wider text-center sm:text-right">&copy; <span id="current-year">2026</span> С-АСА КОНСАЛТИНГ. Всі права захищені.</p>
         </div>
     </footer>
-
-    <!-- iOS банер-підказка -->
-    <div id="iosInstallPrompt" class="fixed bottom-0 left-0 right-0 z-50 p-4 transform translate-y-full transition-transform duration-500 hidden">
-        <div class="max-w-md mx-auto bg-obsidian text-alabaster border border-bronze/40 p-4 shadow-2xl relative flex items-start gap-4">
-            <div class="shrink-0 pt-0.5 text-bronze">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3v11.25"></path>
-                </svg>
-            </div>
-            <div class="flex-1 text-xs leading-relaxed font-light">
-                <p class="font-medium text-sm mb-1 font-serif text-bronze">Встановлення додатка</p>
-                Щоб встановити додаток <span class="font-medium text-white">С-АСА</span> на iPhone, натисніть <span class="inline-block px-1.5 py-0.5 bg-white/10 rounded font-mono">«Поділитися» ⬆️</span> та оберіть <span class="font-medium text-white">«На Початковий екран»</span>.
-            </div>
-            <button id="closeIosPrompt" class="text-white/60 hover:text-white p-1 transition text-sm font-bold" aria-label="Закрити">
-                ✕
-            </button>
-        </div>
-    </div>
 
     <!-- Кнопка скролу вгору -->
     <button id="scrollToTopBtn" 
@@ -706,25 +640,15 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Універсальний прелоадер: у додатку — темний, у браузері — вишуканий світлий у кольорах сайту
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        // Прелоадер: приховування та розблокування прокрутки після завантаження
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
-            preloader.style.display = 'flex';
-            const holdTime = isStandalone ? 2000 : 1600;
-
-            if (isStandalone) {
-                preloader.classList.add('theme-dark');
-            } else {
-                preloader.classList.add('theme-light');
-            }
-
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     preloader.classList.add('loaded');
                     document.body.classList.add('app-loaded');
-                }, holdTime);
+                }, 1600);
             });
         }
 
@@ -758,34 +682,6 @@
                 link.addEventListener('click', toggleMenu);
             });
         }
-
-        // iOS Install Prompt
-        document.addEventListener('DOMContentLoaded', () => {
-            const iosPrompt = document.getElementById('iosInstallPrompt');
-            const closeBtn = document.getElementById('closeIosPrompt');
-            
-            const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
-            const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-            const isStandaloneQuery = window.matchMedia('(display-mode: standalone)').matches;
-            const isDismissed = localStorage.getItem('iosPromptDismissed');
-
-            if (isIos && !isInStandaloneMode && !isStandaloneQuery && !isDismissed) {
-                iosPrompt.classList.remove('hidden');
-                setTimeout(() => {
-                    iosPrompt.classList.remove('translate-y-full');
-                }, 2600);
-            }
-
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    iosPrompt.classList.add('translate-y-full');
-                    localStorage.setItem('iosPromptDismissed', 'true');
-                    setTimeout(() => {
-                        iosPrompt.classList.add('hidden');
-                    }, 500);
-                });
-            }
-        });
 
         // Scroll animations
         const observer = new IntersectionObserver((entries) => {
