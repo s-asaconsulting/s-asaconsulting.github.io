@@ -36,13 +36,6 @@
     <link id="faviconLink" rel="icon" type="image/png" href="LOGO.png">
     <link id="appleTouchIconLink" rel="apple-touch-icon" href="LOGO.png">
 
-    <!-- Синхронне визначення standalone-режиму до рендерингу для усунення мерехтіння -->
-    <script>
-        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-            document.documentElement.classList.add('is-standalone');
-        }
-    </script>
-
     <!-- Мікророзмітка Schema.org -->
     <script type="application/ld+json">
     {
@@ -99,27 +92,10 @@
             text-size-adjust: 100%;
             -webkit-tap-highlight-color: transparent;
         }
-        
-        /* Запобігаємо появі скролу та мікрозсувів під час завантаження */
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #FAF9F6;
-        }
-
-        html.is-standalone, html.is-standalone body {
-            background-color: #18181B;
-        }
-
-        body.app-loaded {
-            overflow-x: hidden;
-            overflow-y: auto;
-            background-color: #FAF9F6;
-        }
-
         body {
+            background-color: #FAF9F6;
             color: #18181B;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -135,7 +111,7 @@
         }
 
         /* =====================================================================
-            УНІВЕРСАЛЬНИЙ ПРЕЛОАДЕР (ДЛЯ БРАУЗЕРІВ ТА ДОДАТКІВ)
+           УНІВЕРСАЛЬНИЙ ПРЕЛОАДЕР (ДЛЯ БРАУЗЕРІВ ТА ДОДАТКІВ)
         ====================================================================== */
         #pagePreloader {
             position: fixed;
@@ -144,6 +120,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* --- 1. СВІТЛА ТЕМА ДЛЯ БРАУЗЕРІВ (Адаптована у фірмових кольорах) --- */
+        #pagePreloader.theme-light {
             background-color: #FAF9F6;
             color: #18181B;
             transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -151,8 +131,70 @@
                         background-color 1.6s ease;
         }
 
-        /* Темна тема для standalone додатків (працює миттєво через клас на html) */
-        html.is-standalone #pagePreloader {
+        #pagePreloader.theme-light .preloader-logo-wrap {
+            animation: lightLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes lightLogoIntro {
+            0% { opacity: 0; transform: scale(0.82) translateY(18px); filter: brightness(0.9); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1); }
+        }
+
+        #pagePreloader.theme-light .preloader-logo {
+            animation: lightLogoGlow 3.2s ease-in-out infinite 1.4s;
+        }
+        @keyframes lightLogoGlow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(184, 155, 114, 0.15)); }
+            50% { transform: scale(1.045); filter: drop-shadow(0 4px 18px rgba(184, 155, 114, 0.3)); }
+        }
+
+        #pagePreloader.theme-light .preloader-title {
+            opacity: 0;
+            animation: cinematicLightTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+        }
+        @keyframes cinematicLightTitle {
+            0% { opacity: 0; transform: translateY(16px); letter-spacing: 0.12em; }
+            100% { opacity: 0.9; transform: translateY(0); letter-spacing: 0.35em; }
+        }
+
+        #pagePreloader.theme-light .preloader-line-track {
+            width: 150px;
+            height: 1.5px;
+            background-color: rgba(24, 24, 27, 0.08);
+            overflow: hidden;
+            position: relative;
+            margin-top: 6px;
+            border-radius: 2px;
+        }
+
+        #pagePreloader.theme-light .preloader-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
+            animation: fillProgressLight 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+        @keyframes fillProgressLight {
+            0% { width: 0%; opacity: 0.5; }
+            100% { width: 100%; opacity: 1; }
+        }
+
+        #pagePreloader.theme-light .preloader-content {
+            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #pagePreloader.theme-light.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #pagePreloader.theme-light.loaded .preloader-content {
+            transform: scale(1.05) translateY(-20px);
+            opacity: 0;
+        }
+
+        /* --- 2. ТЕМНА ТЕМА ДЛЯ МОБІЛЬНИХ ДОДАТКІВ APPLE ТА ANDROID --- */
+        #pagePreloader.theme-dark {
             background-color: #18181B;
             color: #FAF9F6;
             transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -162,98 +204,67 @@
                         -webkit-backdrop-filter 1.8s ease;
         }
 
-        .preloader-logo-wrap {
-            width: 96px;
-            height: 96px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform-origin: center center;
-            will-change: transform, opacity;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transform: translateZ(0);
-            animation: logoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        #pagePreloader.theme-dark .preloader-logo-wrap {
+            animation: appLogoIntro 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        @keyframes logoIntro {
-            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
-            100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
+        @keyframes appLogoIntro {
+            0% { opacity: 0; transform: scale(0.82) translateY(18px); filter: brightness(0.7); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1); }
         }
 
-        .preloader-logo {
-            transform-origin: center center;
-            will-change: transform;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transform: translateZ(0);
-            animation: logoGlow 3.2s ease-in-out infinite 1.4s;
+        #pagePreloader.theme-dark .preloader-logo {
+            animation: appLogoGlow 3.2s ease-in-out infinite 1.4s;
         }
-        @keyframes logoGlow {
-            0%, 100% { transform: scale(1) translateZ(0); }
-            50% { transform: scale(1.045) translateZ(0); }
+        @keyframes appLogoGlow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(184, 155, 114, 0.15)); }
+            50% { transform: scale(1.045); filter: drop-shadow(0 0 24px rgba(184, 155, 114, 0.4)); }
         }
 
-        .preloader-title {
+        #pagePreloader.theme-dark .preloader-title {
             opacity: 0;
-            letter-spacing: 0.35em;
-            animation: cinematicTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            animation: cinematicAppTitle 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
         }
-        @keyframes cinematicTitle {
-            0% { opacity: 0; transform: translateY(16px) translateZ(0); }
-            100% { opacity: 0.95; transform: translateY(0) translateZ(0); }
+        @keyframes cinematicAppTitle {
+            0% { opacity: 0; transform: translateY(16px); letter-spacing: 0.12em; }
+            100% { opacity: 0.95; transform: translateY(0); letter-spacing: 0.35em; }
         }
 
-        .preloader-line-track {
+        #pagePreloader.theme-dark .preloader-line-track {
             width: 150px;
             height: 1.5px;
-            background-color: rgba(24, 24, 27, 0.08);
+            background-color: rgba(250, 249, 246, 0.12);
             overflow: hidden;
             position: relative;
             margin-top: 6px;
             border-radius: 2px;
         }
-        html.is-standalone .preloader-line-track {
-            background-color: rgba(250, 249, 246, 0.12);
-        }
-
-        .preloader-line-fill {
+        #pagePreloader.theme-dark .preloader-line-fill {
             position: absolute;
             top: 0;
             left: 0;
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
-            animation: fillProgress 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-        }
-        html.is-standalone .preloader-line-fill {
             background: linear-gradient(90deg, transparent, #B89B72, #FAF9F6, #B89B72);
+            animation: fillProgressApp 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
-        @keyframes fillProgress {
+        @keyframes fillProgressApp {
             0% { width: 0%; opacity: 0.5; }
             100% { width: 100%; opacity: 1; }
         }
 
-        .preloader-content {
+        #pagePreloader.theme-dark .preloader-content {
             transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
                         opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
                         filter 1.4s ease;
         }
-
-        #pagePreloader.loaded {
+        #pagePreloader.theme-dark.loaded {
             opacity: 0;
             visibility: hidden;
-        }
-        html.is-standalone #pagePreloader.loaded {
             background-color: rgba(24, 24, 27, 0.15);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
         }
-
-        #pagePreloader.loaded .preloader-content {
-            transform: scale(1.05) translateY(-20px);
-            opacity: 0;
-        }
-        html.is-standalone #pagePreloader.loaded .preloader-content {
+        #pagePreloader.theme-dark.loaded .preloader-content {
             transform: scale(1.08) translateY(-24px);
             opacity: 0;
             filter: blur(8px);
@@ -326,10 +337,10 @@
 <body class="font-sans font-light selection:bg-bronze selection:text-white">
 
     <!-- Універсальний прелоадер -->
-    <div id="pagePreloader">
+    <div id="pagePreloader" style="display: none;">
         <div class="preloader-content flex flex-col items-center gap-5">
             <div class="preloader-logo-wrap">
-                <img src="LOGO.png" alt="С-АСА Логотип" class="max-h-full max-w-full object-contain preloader-logo" width="120" height="120">
+                <img src="LOGO.png" alt="С-АСА Логотип" class="h-24 w-auto object-contain preloader-logo">
             </div>
             <span class="preloader-title font-serif text-sm uppercase">С-АСА КОНСАЛТИНГ</span>
             <div class="preloader-line-track">
@@ -346,7 +357,7 @@
                 <!-- Логотип -->
                 <div class="flex items-center gap-3 sm:gap-4 logo-container">
                     <a href="#" class="flex items-center">
-                        <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" class="h-10 sm:h-14 w-auto object-contain logo-blend" width="140" height="56">
+                        <img id="headerLogo" src="LOGO.png" alt="С-АСА КОНСАЛТИНГ Логотип" class="h-10 sm:h-14 w-auto object-contain logo-blend">
                     </a>
 
                     <a href="#" class="flex flex-col border-l border-obsidian/15 pl-3 sm:pl-4">
@@ -478,8 +489,6 @@
                                      src="bas-service.jpg" 
                                      alt="Автоматизація бізнес-процесів BAS — графічна візуалізація потоків даних" 
                                      loading="lazy"
-                                     width="800"
-                                     height="600"
                                      class="w-full h-full object-cover img-editorial">
                                 <div class="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent pointer-events-none"></div>
                             </div>
@@ -534,7 +543,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
                 <div class="max-w-2xl mb-12 sm:mb-16 reveal">
                     <span class="text-xs uppercase tracking-[0.25em] text-bronze block mb-2 sm:mb-3">Методологія</span>
-                    <h2 class="font-serif text-3xl sm:text-5xl font-normal leading-tight">
+                    <h2 class="font-serif text-2.5xl sm:text-5xl font-normal leading-tight">
                         Як ми перетворюємо хаос поточних операцій на <span class="italic text-bronze">прозорий алгоритм</span>
                     </h2>
                 </div>
@@ -660,7 +669,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-xs text-graphite">
             <div class="flex items-center gap-3 logo-container">
                 <a href="#" class="flex items-center">
-                    <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend" width="100" height="40">
+                    <img id="footerLogo" src="LOGO.png" alt="С-АСА Логотип" class="h-8 sm:h-10 w-auto object-contain logo-blend">
                 </a>
                 <a href="#" class="font-serif text-sm sm:text-lg tracking-[0.18em] sm:tracking-[0.2em] text-obsidian">С-АСА КОНСАЛТИНГ</a>
             </div>
@@ -697,12 +706,19 @@
 
     <!-- СКРИПТИ -->
     <script>
-        // Прелоадер: приховування та розблокування прокрутки після завантаження
+        // Універсальний прелоадер: у додатку — темний, у браузері — вишуканий світлий у кольорах сайту
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
+            preloader.style.display = 'flex';
             const holdTime = isStandalone ? 2000 : 1600;
+
+            if (isStandalone) {
+                preloader.classList.add('theme-dark');
+            } else {
+                preloader.classList.add('theme-light');
+            }
 
             window.addEventListener('load', () => {
                 setTimeout(() => {
@@ -765,7 +781,7 @@
                     iosPrompt.classList.add('translate-y-full');
                     localStorage.setItem('iosPromptDismissed', 'true');
                     setTimeout(() => {
-                        iosPrompt.hidden = true;
+                        iosPrompt.classList.add('hidden');
                     }, 500);
                 });
             }
