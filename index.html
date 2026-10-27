@@ -2,6 +2,12 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <!-- МІКРО-СКРИПТ ДЛЯ УСУНЕННЯ БЛИМАННЯ ВИКЛЮЧНО В МОБІЛЬНИХ ДОДАТКАХ (PWA) -->
+    <script>
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+            document.write('<style>#pagePreloader { background-color: #000000 !important; color: #FAF9F6 !important; }</style>');
+        }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     
     <!-- =====================================================================
@@ -195,9 +201,6 @@
 
         /* ЧОРНИЙ ФОН ПРЕЛОАДЕРА СУВОРО ТІЛЬКИ ДЛЯ МОБІЛЬНОГО ДОДАТКА (PWA) */
         @media (display-mode: standalone) {
-            html, body {
-                background-color: #000000 !important;
-            }
             #pagePreloader {
                 background-color: #000000;
                 color: #FAF9F6;
