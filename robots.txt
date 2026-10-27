@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Вказуємо пошуковим системам шлях до карти сайту
-Sitemap: https://s-asa.com.ua/sitemap.xml
