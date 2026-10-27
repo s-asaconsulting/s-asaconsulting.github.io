@@ -117,7 +117,7 @@
             padding-top: env(safe-area-inset-top, 0px);
         }
 
-        /* 2. КОРИСТУВАЦЬКІ АНІМАЦІЇ ТА КОМПОНЕНТИ */
+        /* 2. КОРИСТУВАЦЬКІ АНІМАЦІЇ ТА КОМПОНЕНТИ (ДЛЯ ЗВИЧАЙНИХ БРАУЗЕРІВ ВСЕ БЕЗ ЗМІН) */
         #pagePreloader {
             position: fixed;
             inset: 0;
@@ -191,6 +191,21 @@
             0% { width: 0%; opacity: 0.5; }
             100% { width: 100%; opacity: 1; }
         }
+
+        /* ЧОРНИЙ ФОН ПРЕЛОАДЕРА СУВОРО ТІЛЬКИ ДЛЯ МОБІЛЬНОГО ДОДАТКА (PWA) */
+        @media (display-mode: standalone) {
+            #pagePreloader {
+                background-color: #000000;
+                color: #FAF9F6;
+            }
+            .preloader-line-track {
+                background-color: rgba(255, 255, 255, 0.12);
+            }
+            .preloader-line-fill {
+                background: linear-gradient(90deg, transparent, #B89B72, #FAF9F6, #B89B72);
+            }
+        }
+
         .preloader-content {
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                         opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
