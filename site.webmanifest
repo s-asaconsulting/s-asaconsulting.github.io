@@ -1,0 +1,35 @@
+{
+  "id": "/",
+  "name": "С-АСА КОНСАЛТИНГ — Автоматизація 1С / BAS",
+  "short_name": "С-АСА",
+  "description": "Автоматизація бізнес-процесів, впровадження, програмування, налаштування та доопрацювання 1С / BAS.",
+  "lang": "uk-UA",
+  "dir": "ltr",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    {
+      "src": "/LOGO.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/LOGO.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/LOGO.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
