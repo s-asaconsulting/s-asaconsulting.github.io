@@ -117,7 +117,7 @@
             padding-top: env(safe-area-inset-top, 0px);
         }
 
-        /* 2. КОРИСТУВАЦЬКІ АНІМАЦІЇ ТА КОМПОНЕНТИ */
+        /* 2. КОРИСТУВАЦЬКІ АНІМАЦІЇ ТА КОМПОНЕНТИ (ВИШУКАНИЙ ПРЕЛОАДЕР + SHIMMER) */
         #pagePreloader {
             position: fixed;
             inset: 0;
@@ -127,13 +127,13 @@
             justify-content: center;
             background-color: #FAF9F6;
             color: #18181B;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        visibility 0.8s ease, 
-                        background-color 0.8s ease;
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                        visibility 1.2s ease, 
+                        background-color 1.2s ease;
         }
         .preloader-logo-wrap {
-            width: 96px;
-            height: 96px;
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -142,59 +142,94 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: translateZ(0);
-            animation: logoIntro 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: logoIntro 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         @keyframes logoIntro {
-            0% { opacity: 0; transform: scale(0.82) translateY(18px) translateZ(0); }
+            0% { opacity: 0; transform: scale(0.84) translateY(16px) translateZ(0); }
             100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); }
         }
         .preloader-logo {
             transform-origin: center center;
-            will-change: transform;
+            will-change: transform, filter;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: translateZ(0);
-            animation: logoGlow 3.2s ease-in-out infinite 0.8s;
+            filter: drop-shadow(0 6px 18px rgba(184, 155, 114, 0.16));
+            animation: logoGlow 3.6s ease-in-out infinite 1.2s;
         }
         @keyframes logoGlow {
-            0%, 100% { transform: scale(1) translateZ(0); }
-            50% { transform: scale(1.045) translateZ(0); }
+            0%, 100% { transform: scale(1) translateZ(0); filter: drop-shadow(0 6px 18px rgba(184, 155, 114, 0.14)); }
+            50% { transform: scale(1.045) translateZ(0); filter: drop-shadow(0 10px 26px rgba(184, 155, 114, 0.28)); }
         }
         .preloader-title {
             opacity: 0;
-            letter-spacing: 0.35em;
-            animation: cinematicTitle 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            letter-spacing: 0.42em;
+            animation: cinematicTitle 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
         }
         @keyframes cinematicTitle {
-            0% { opacity: 0; transform: translateY(16px) translateZ(0); }
-            100% { opacity: 0.95; transform: translateY(0) translateZ(0); }
+            0% { opacity: 0; letter-spacing: 0.48em; transform: translateY(14px) translateZ(0); }
+            100% { opacity: 0.95; letter-spacing: 0.35em; transform: translateY(0) translateZ(0); }
         }
         .preloader-line-track {
-            width: 150px;
+            width: 168px;
             height: 1.5px;
-            background-color: rgba(24, 24, 27, 0.08);
+            background-color: rgba(24, 24, 27, 0.06);
             overflow: hidden;
             position: relative;
             margin-top: 6px;
             border-radius: 2px;
         }
+        /* Ефект золотого переливу (Liquid Gold Shimmer) із розкриттям від центру */
         .preloader-line-fill {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
+            width: 100%;
             height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, transparent, #B89B72, #18181B, #B89B72);
-            animation: fillProgress 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            transform-origin: center center;
+            transform: scaleX(0);
+            background: linear-gradient(
+                90deg,
+                rgba(184, 155, 114, 0.1) 0%,
+                #B89B72 25%,
+                #E6D2B5 50%,
+                #9A7B50 75%,
+                rgba(184, 155, 114, 0.1) 100%
+            );
+            background-size: 200% 100%;
+            animation: 
+                lineExpand 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards,
+                goldShimmer 1.8s linear 0.2s infinite;
         }
-        @keyframes fillProgress {
-            0% { width: 0%; opacity: 0.5; }
-            100% { width: 100%; opacity: 1; }
+        @keyframes lineExpand {
+            0% { transform: scaleX(0); opacity: 0.3; }
+            100% { transform: scaleX(1); opacity: 1; }
+        }
+        @keyframes goldShimmer {
+            0% { background-position: 150% 0; }
+            100% { background-position: -50% 0; }
+        }
+
+        /* Прискорена анімація для повторних візитів у межах сесії */
+        #pagePreloader.repeat-visit {
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.65s ease;
+        }
+        #pagePreloader.repeat-visit .preloader-logo-wrap {
+            animation-duration: 0.35s;
+        }
+        #pagePreloader.repeat-visit .preloader-title {
+            animation-duration: 0.35s;
+            animation-delay: 0.03s;
+        }
+        #pagePreloader.repeat-visit .preloader-line-fill {
+            animation: 
+                lineExpand 0.3s cubic-bezier(0.16, 1, 0.3, 1) 0s forwards,
+                goldShimmer 1.2s linear 0s infinite;
         }
         .preloader-content {
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
-                        filter 0.7s ease;
+            transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1), 
+                        opacity 1s cubic-bezier(0.22, 1, 0.36, 1), 
+                        filter 1s ease;
         }
         #pagePreloader.loaded {
             opacity: 0;
@@ -202,9 +237,57 @@
             pointer-events: none;
         }
         #pagePreloader.loaded .preloader-content {
-            transform: scale(1.05) translateY(-20px);
+            transform: scale(1.04) translateY(-16px);
             opacity: 0;
         }
+
+        /* 2.1. КАСКАДНА ПОЯВА ГОЛОВНОГО ЕКРАНА (HERO CASCADE CHOREOGRAPHY) */
+        .hero-cascade {
+            opacity: 0;
+            transform: translateY(26px);
+            will-change: transform, opacity;
+            transition: opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .hero-graphic-intro {
+            opacity: 0;
+            transform: translateY(-50%) scale(0.94);
+            will-change: transform, opacity;
+            transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        body.site-revealed .hero-cascade {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body.site-revealed .hero-graphic-intro {
+            opacity: 0.35;
+            transform: translateY(-50%) scale(1);
+        }
+        @media (min-width: 640px) {
+            body.site-revealed .hero-graphic-intro {
+                opacity: 0.6;
+            }
+        }
+        /* Ступінчасті затримки для кінематографічного розкриття */
+        body.site-revealed .hero-delay-1 { transition-delay: 0.10s; }
+        body.site-revealed .hero-delay-2 { transition-delay: 0.24s; }
+        body.site-revealed .hero-delay-3 { transition-delay: 0.38s; }
+        body.site-revealed .hero-delay-4 { transition-delay: 0.52s; }
+        body.site-revealed .hero-delay-5 { transition-delay: 0.68s; }
+        body.site-revealed .hero-graphic-intro { transition-delay: 0.20s; }
+
+        /* Миттєвий м'який каскад при повторному візиті */
+        body.repeat-session .hero-cascade {
+            transition-duration: 0.7s;
+        }
+        body.repeat-session.site-revealed .hero-delay-1 { transition-delay: 0.02s; }
+        body.repeat-session.site-revealed .hero-delay-2 { transition-delay: 0.08s; }
+        body.repeat-session.site-revealed .hero-delay-3 { transition-delay: 0.14s; }
+        body.repeat-session.site-revealed .hero-delay-4 { transition-delay: 0.20s; }
+        body.repeat-session.site-revealed .hero-delay-5 { transition-delay: 0.26s; }
+        body.repeat-session.site-revealed .hero-graphic-intro { transition-duration: 0.9s; transition-delay: 0.05s; }
+
         .border-subtle { border-color: rgba(24, 24, 27, 0.1); }
 
         @keyframes rotateSlow {
@@ -593,8 +676,8 @@
         /* 5. ПОВАГА ДО СИСТЕМНИХ НАЛАШТУВАНЬ ЗМЕНШЕННЯ РУХУ (ACCESSIBILITY) */
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .svg-orbit, .svg-pulse, .preloader-logo { animation: none !important; }
-            .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+            .svg-orbit, .svg-pulse, .preloader-logo, .preloader-line-fill { animation: none !important; }
+            .reveal, .hero-cascade, .hero-graphic-intro { transition: none !important; opacity: 1 !important; transform: none !important; }
         }
     </style>
 
@@ -602,7 +685,8 @@
     <noscript>
         <style>
             #pagePreloader { display: none !important; }
-            .reveal { opacity: 1 !important; transform: none !important; }
+            .reveal, .hero-cascade { opacity: 1 !important; transform: none !important; }
+            .hero-graphic-intro { opacity: 0.35 !important; transform: translateY(-50%) !important; }
         </style>
     </noscript>
 </head>
@@ -677,10 +761,10 @@
         </div>
     </div>
 
-    <!-- Головний екран (Hero Section) -->
+    <!-- Головний екран (Hero Section) з каскадною хореографією -->
     <main>
         <section class="relative min-h-screen flex items-center pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden">
-            <div class="absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0 opacity-35 sm:opacity-60">
+            <div class="hero-graphic-intro absolute right-[-15%] sm:right-[-10%] lg:right-[2%] top-1/2 w-[320px] h-[320px] sm:w-[550px] sm:h-[550px] lg:w-[760px] lg:h-[760px] pointer-events-none z-0">
                 <svg viewBox="0 0 600 600" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                     <circle cx="300" cy="300" r="280" stroke="#B89B72" stroke-width="0.6" stroke-dasharray="3 6" class="svg-orbit"/>
                     <circle cx="300" cy="300" r="220" stroke="#18181B" stroke-width="0.4" stroke-opacity="0.2"/>
@@ -698,21 +782,21 @@
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
                 <div class="max-w-3xl">
-                    <div class="inline-flex items-center gap-3 mb-5 sm:mb-8">
+                    <div class="hero-cascade hero-delay-1 inline-flex items-center gap-3 mb-5 sm:mb-8">
                         <span class="w-6 sm:w-8 h-[1px] bg-bronze"></span>
                         <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-bronzeDark font-medium">Системна архітектура бізнесу</span>
                     </div>
                     
-                    <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl text-obsidian leading-[1.15] sm:leading-[1.08] mb-6 sm:mb-8 font-normal">
+                    <h1 class="hero-cascade hero-delay-2 font-serif text-3xl sm:text-5xl lg:text-6xl text-obsidian leading-[1.15] sm:leading-[1.08] mb-6 sm:mb-8 font-normal">
                         Комплексна автоматизація бізнесу <br class="hidden sm:inline">
                         <span class="italic font-light text-bronzeDark">на базі 1С / BAS</span>
                     </h1>
                     
-                    <p class="text-sm sm:text-xl text-graphite leading-relaxed mb-8 sm:mb-12 max-w-2xl font-light">
+                    <p class="hero-cascade hero-delay-3 text-sm sm:text-xl text-graphite leading-relaxed mb-8 sm:mb-12 max-w-2xl font-light">
                         Передайте рутину надійним алгоритмам, щоб керувати бізнесом із повною впевненістю у завтрашньому дні.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-6">
+                    <div class="hero-cascade hero-delay-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-6">
                         <a href="#services" class="group inline-flex items-center justify-center gap-4 sm:gap-5 bg-obsidian text-alabaster px-7 sm:px-9 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] hover:bg-bronzeDark transition-all duration-500 text-center">
                             <span>Ознайомитись з послугами</span>
                             <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -725,7 +809,7 @@
                     </div>
                 </div>
 
-                <div class="mt-16 sm:mt-24 pt-8 border-t border-subtle grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-2xl">
+                <div class="hero-cascade hero-delay-5 mt-16 sm:mt-24 pt-8 border-t border-subtle grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-2xl">
                     <div>
                         <span class="block font-serif text-lg sm:text-2xl text-obsidian">BAS & ІТ</span>
                         <span class="text-xs text-graphite tracking-wider uppercase mt-1 block">Алгоритмізація процесів</span>
@@ -955,7 +1039,7 @@
     <div id="iosPwaPrompt" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-24 sm:w-96 z-[60] bg-obsidian text-alabaster border border-bronze/40 p-4 sm:p-5 shadow-2xl opacity-0 translate-y-8 pointer-events-none transition-all duration-500">
         <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3.5">
-                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain bg-alabaster p-1 shrink-0 rounded-sm" width="44" height="44">
+                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain shrink-0" width="44" height="44">
                 <div>
                     <h4 class="font-serif text-base sm:text-lg text-alabaster leading-tight">Встановити додаток С-АСА</h4>
                     <p class="text-[11px] text-white/70 font-light mt-0.5 leading-snug">Швидкий доступ до консалтингу прямо з екрана вашого iPhone</p>
@@ -985,7 +1069,7 @@
     <div id="androidPwaPrompt" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-24 sm:w-96 z-[60] bg-obsidian text-alabaster border border-bronze/40 p-4 sm:p-5 shadow-2xl opacity-0 translate-y-8 pointer-events-none transition-all duration-500">
         <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3.5">
-                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain bg-alabaster p-1 shrink-0 rounded-sm" width="44" height="44">
+                <img src="LOGO.png" alt="С-АСА" class="w-11 h-11 object-contain shrink-0" width="44" height="44">
                 <div>
                     <h4 class="font-serif text-base sm:text-lg text-alabaster leading-tight">Встановити додаток С-АСА</h4>
                     <p class="text-[11px] text-white/70 font-light mt-0.5 leading-snug">Швидкий доступ до консалтингу з екрана вашого телефону</p>
@@ -1026,7 +1110,7 @@
             });
         }
 
-        // 2. Прелоадер: адаптивний таймінг (швидкий повторний показ у межах сесії) + запобіжник
+        // 2. Прелоадер + Каскадна поява Hero-секції: 2400 мс для першого візиту та 300 мс для повторного
         const preloader = document.getElementById('pagePreloader');
 
         if (preloader) {
@@ -1036,7 +1120,12 @@
                 isRepeatVisit = Boolean(sessionStorage.getItem('sasa_visited'));
             } catch (e) {}
 
-            const delay = isRepeatVisit ? 300 : 900;
+            if (isRepeatVisit) {
+                preloader.classList.add('repeat-visit');
+                document.body.classList.add('repeat-session');
+            }
+
+            const delay = isRepeatVisit ? 300 : 2400;
 
             const hidePreloader = () => {
                 if (isPreloaderHidden) return;
@@ -1046,6 +1135,7 @@
                 } catch (e) {}
                 setTimeout(() => {
                     preloader.classList.add('loaded');
+                    document.body.classList.add('site-revealed');
                 }, delay);
             };
 
@@ -1054,8 +1144,10 @@
             } else {
                 document.addEventListener('DOMContentLoaded', hidePreloader);
             }
-            // Запобіжник: примусово приховати через 2.5 с, навіть якщо зовнішні ресурси затримуються
-            setTimeout(hidePreloader, 2500);
+            // Запобіжник: примусово приховати через 4.0 с, навіть якщо зовнішні ресурси затримуються
+            setTimeout(hidePreloader, 4000);
+        } else {
+            document.body.classList.add('site-revealed');
         }
 
         // Актуалізація року у футері
@@ -1189,7 +1281,7 @@
                 setTimeout(() => {
                     iosPwaPrompt.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
                     iosPwaPrompt.classList.add('opacity-100', 'translate-y-0');
-                }, 3500);
+                }, 4800);
             }
 
             closePwaPrompt.addEventListener('click', () => {
@@ -1226,7 +1318,7 @@
                 setTimeout(() => {
                     androidPwaPrompt.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
                     androidPwaPrompt.classList.add('opacity-100', 'translate-y-0');
-                }, 3500);
+                }, 4800);
             }
         });
 
